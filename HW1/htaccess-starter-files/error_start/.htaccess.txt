@@ -1,0 +1,2 @@
+ErrorDocument 404 /shb3456/235/error/error.html
+DirectoryIndex noterror.html 
