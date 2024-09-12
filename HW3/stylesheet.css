@@ -1,0 +1,45 @@
+body{
+    background-color: #73956F;
+}
+#title{
+    color: #37363A;
+}
+h2 { 
+    color:#361E13;
+    }
+h3 {
+    color: #4B251D;
+}
+p{
+    color:#EAE1DF
+}
+a{
+    color: #EAE1DF;
+}
+.comfortaa {
+  font-family: "Comfortaa", sans-serif;
+  font-weight: 300;
+  font-style: normal;
+}
+.montserrat {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+  }
+.raleway {
+    font-family: "Raleway", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+}
+
+.quicksand {
+    font-family: "Quicksand", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+#bio {
+    margin-left: 50px;
+    margin-right: 50px;
+}
+
