@@ -1,5 +1,5 @@
 body{
-    background-color: #73956F;
+    background-color: #49484C;
 }
 #title{
     color: #37363A;
@@ -41,5 +41,12 @@ a{
 #bio {
     margin-left: 50px;
     margin-right: 50px;
+}
+
+main, header {
+    border: 1px solid black;
+    margin: 0.8vh 0.8vw;
+    padding: 2rem;
+    background-color: #73956F;
 }
 
