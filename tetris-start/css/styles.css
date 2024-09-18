@@ -1,0 +1,30 @@
+h1, h2, h3 {
+    border-bottom: 1px solid red;
+}
+figure {
+    float: right;
+    width: 40%;
+    margin-left: 2em;
+}
+figure img {
+    width: 100%;
+}
+h2 {
+    clear: right;
+}
+div.tet {
+    float: left;
+    width: 30%;
+    border: 1px dotted purple;
+}
+footer {
+    clear: both;
+    position: fixed;
+    background-color: grey;
+    top: 0;
+    z-index: -5;
+    right: 0;
+}
+body{
+    margin: 5em;
+}
