@@ -18,3 +18,7 @@ div.tet{
     flex: 1 0 450px;
     border: 1px solid black;
 }
+
+div.tet img{
+    width: 60%;
+}
