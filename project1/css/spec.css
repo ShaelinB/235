@@ -1,109 +1,117 @@
-.container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: white;
+
+@media (max-width: 2171px ){
+    .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding-left: 25%;
+        padding-right: 25%;
+        padding-top: 1%;
+        padding-bottom: 1%;
+        background-color: white;
+        position: fixed;
+    }
+
+    header {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        align-items: left;
+        width: 100%;
+        margin-top: -4em;
+    }
+    
+    #top-title {
+        background-color: #F76902;
+        font-size: 75px;
+        max-width: 305px;
+    }
+    
+    #bottom-title {
+        background-color: #000000;
+        font-size: 20px; 
+        font-weight: lighter;
+        margin-top: -51px;
+        align-items: left;
+        max-width: 220px;
+        margin-left: 115px;
+    }
+    
+    #stadium-image {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        margin-top: -125px;
+        position: absolute;
+        z-index: -1;
+    }
+    
+    .description {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        font-size: 25px;
+        padding-left: 3%;
+        margin-top: 46.25%;
+        align-self: flex-start;
+
+    }
+    
+    #top-description {
+        color: white;
+        text-shadow: black;
+    }
+    
+    #bottom-description {
+        color: #F76902;
+        margin-top: -2rem;
+    }
+    
+    .columns {
+        display: flex;
+        width: 100%;
+        text-align: left;
+        padding: 10px;
+        margin-top: -50px;
+        justify-content: space-evenly;
+    }
+
+    .text {
+        font-family: "Georgia Regular";
+        display: flex;
+        width: 100%;
+        flex: 1;
+        padding: 10px;
+    }
+    
+
+    #text-col1 , #text-col2, #text-col3 {
+        flex: display;
+        flex: 25%;
+    }
+    
+    .side-info {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        flex: .25;
+        padding: 10px;
+        margin-top: -5px;
+    }
+    
+    h3, #top-text {
+        background-color: #F76902;
+    } 
+
+    #top-text {
+        margin-top: -19px;
+    }
+    
+    #bottom-text {
+        background-color: #d0d3d4;
+        color: black;
+        margin-top: -20px;
+    }
+    
+    #track-image{
+        margin-top:-36px;
+    }
 }
 
-header {
-    font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
-    color: white;
-    padding: 10px;
-    width: 100%;
-}
-
-
-#top-title {
-    background-color: #F76902;
-    font-size: 75px;
-    margin-top: -25px;
-}
-
-#bottom-title {
-    background-color: #000000;
-    font-size: 20px; 
-    font-weight: lighter;
-    margin-top: -50px;
-    margin-left: 120px;
-}
-
-#stadium-image {
-    margin-top: -75px;
-}
-
-.description {
-    font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
-    align-self: left;
-    margin-left: -700px;
-    margin-top: -105px;
-    font-size: 25px;
-}
-
-#top-description {
-    color: white;
-    text-shadow: black;
-}
-
-#bottom-description {
-    color: #F76902;
-    margin-top: -35px;
-}
-
-.columns {
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    text-align: left;
-    margin-top: -30px;
-    margin-left: 10px;
-    margin-right: 20px;
-    padding: 10px;
-}
-
-.text {
-    font-family: "Georgia Regular";
-    display: flex;
-    justify-content: space-evenly;
-    width: 100%;
-    flex: 1;
-    padding: 10px;
-}
-
-#text-col1 {
-    display: flex;
-    flex: .25;
-}
-
-#text-col2 {
-    display: flex;
-    flex: .25;
-}
-
-
-#text-col3 {
-    display: flex;
-    flex: .25;
-
-}
-
-.side-info {
-    font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
-    color: white;
-    flex: .25;
-    padding: 10px;
-    margin-top: -50px;
-}
-
-#top-text {
-    background-color: #F76902;
-}
-
-#bottom-text {
-    background-color: #d0d3d4;
-    color: black;
-    margin-top: -20px;
-}
-
-#track-image{
-}
