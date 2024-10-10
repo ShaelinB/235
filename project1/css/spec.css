@@ -112,11 +112,156 @@
     }
     
     footer {
+        align-items: left;
         margin-bottom: 1rem;
     }
 
     #track-image{
         margin-top:-40px;
+        width:100%;
+        height: auto;
+        position: absolute;
+        z-index: -1;
     }
 }
+
+@media (max-width: 1151px ){
+    .container {
+        max-width: 700px;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    header, main, footer {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    header {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        align-items: left;
+        margin-top: -4rem;
+        max-width: 700px;
+        margin-left: -8px;
+    }
+    
+    #top-title {
+        background-color: #F76902;
+        font-size: 75px;
+        max-width: 305px;
+    }
+    
+    #bottom-title {
+        background-color: #000000;
+        font-size: 20px; 
+        font-weight: lighter;
+        margin-top: -51px;
+        align-items: left;
+        max-width: 220px;
+        margin-left: 115px;
+    }
+
+    #stadium-image {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        margin-top: -125px;
+        margin-left: 10px;
+        position: relative;
+        width: 100%;
+        height: auto;
+        z-index: -1;
+    }
+
+
+    .description {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        font-size: 25px;
+        padding-left: 3%;
+        margin-top: -155px;
+        max-width: 400px;
+        align-self: flex-start;
+
+    }
+    
+    #top-description {
+        color: white;
+        text-shadow: black;
+    }
+    
+    #bottom-description {
+        color: #F76902;
+        margin-top: -2rem;
+    }
+    
+    .columns {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 600px;
+        text-align: left;
+        padding: 10px;
+        margin-top: -50px;
+        justify-content: space-evenly;
+    }
+
+    .text {
+        font-family: "Georgia Regular";
+        display: flex;
+        flex-direction: column;
+        padding-left: 10px;
+        width: 100%;
+        flex: 1;
+    }
+    
+
+    #text-col1 , #text-col2, #text-col3 {
+        flex: display;
+        flex: 25%;
+    }
+    
+    .side-info {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        flex: .25;
+        padding: 10px;
+        margin-top: -5px;
+    }
+    
+    h3, #top-text {
+        background-color: #F76902;
+    } 
+
+    #top-text {
+        margin-top: -19px;
+    }
+    
+    #bottom-text {
+        background-color: #d0d3d4;
+        color: black;
+        margin-top: -20px;
+    }
+    
+    footer {
+        align-items: left;
+        margin-bottom: 1rem;
+    }
+
+    #track-image{
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        margin-top:-40px;
+        margin-left: 50px;
+        width:100%;
+        height: auto;
+        position: relative;
+        z-index: -1;
+    }
+}
+
+
+
 
