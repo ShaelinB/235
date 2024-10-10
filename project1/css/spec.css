@@ -1,24 +1,21 @@
 
-@media (max-width: 2171px ){
+@media (min-width: 1152px ){
     .container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        padding-left: 25%;
-        padding-right: 25%;
-        padding-top: 1%;
-        padding-bottom: 1%;
-        background-color: white;
-        position: fixed;
+        max-width: 1080px;
+        padding: 20px;
+        margin: 0 auto;
+    }
+
+    header, main, footer {
+        width: 100%;
     }
 
     header {
         font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
         color: white;
         align-items: left;
+        margin-top: -4rem;
         width: 100%;
-        margin-top: -4em;
     }
     
     #top-title {
@@ -45,7 +42,11 @@
         position: absolute;
         z-index: -1;
     }
-    
+
+    main {
+        margin-top: 51%;
+    }
+
     .description {
         font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
         font-size: 25px;
@@ -110,8 +111,12 @@
         margin-top: -20px;
     }
     
+    footer {
+        margin-bottom: 1rem;
+    }
+
     #track-image{
-        margin-top:-36px;
+        margin-top:-40px;
     }
 }
 
