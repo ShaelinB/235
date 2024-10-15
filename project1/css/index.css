@@ -1,0 +1,469 @@
+
+@media (min-width: 1152px ){
+    .container1 {
+        max-width: 1080px;
+        padding: 20px;
+        margin: 0 auto;
+    }
+
+    .header1, .main1, .footer1 {
+        width: 100%;
+    }
+
+    .header1 {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        align-items: left;
+        margin-top: -4rem;
+        width: 100%;
+    }
+    
+    #top-title1 {
+        background-color: #F76902;
+        font-size: 75px;
+        max-width: 540px;
+    }
+    
+    #stadium-image1 {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        margin-top: -135px;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .main1 {
+        margin-top: 53%;
+    }
+
+    .description1 {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        font-size: 25px;
+        padding-left: 3%;
+        margin-top: 46.25%;
+        align-self: flex-start;
+
+    }
+    
+    #top-description1 {
+        color: white;
+        text-shadow: black;
+    }
+    
+    .columns1 {
+        display: flex;
+        width: 100%;
+        text-align: left;
+        padding: 10px;
+        margin-top: -50px;
+        justify-content: space-evenly;
+    }
+
+    .text1 {
+        font-family: "Georgia Regular";
+        display: flex;
+        width: 100%;
+        flex: 1;
+        padding: 10px;
+    }
+    
+
+    #text-col1-1 , #text-col2-1, #text-col3-1 {
+        flex: display;
+        flex: 25%;
+    }
+    
+    .side-info1 {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        flex: .25;
+        padding: 10px;
+        margin-top: -5px;
+    }
+    
+    .h3-1, #top-text1 {
+        background-color: #F76902;
+    } 
+
+    #top-text1 {
+        margin-top: -19px;
+    }
+    
+    #bottom-text1 {
+        background-color: #d0d3d4;
+        color: black;
+        margin-top: -10px;
+    }
+    
+    .footer1 {
+        align-items: left;
+        margin-bottom: 1rem;
+    }
+
+    #track-image1{
+        margin-top:-40px;
+        width:100%;
+        height: auto;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .container2 {
+        max-width: 1080px;
+        padding: 20px;
+        margin: 0 auto;
+        margin-top: 45em;
+    }
+
+    .header2, .main2, .footer2 {
+        width: 100%;
+    }
+
+    .header2 {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        align-items: left;
+        margin-top: -4rem;
+        width: 100%;
+    }
+    
+    #top-title2 {
+        background-color: #F76902;
+        font-size: 75px;
+        max-width: 560px;
+    }
+    
+    #stadium-image2 {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        margin-top: -135px;
+        position: absolute;
+        z-index: -1;
+    }
+
+    .main2 {
+        margin-top: 53%;
+    }
+
+    .description2 {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        font-size: 25px;
+        padding-left: 3%;
+        margin-top: 46.25%;
+        align-self: flex-start;
+
+    }
+    
+    #top-description2 {
+        color: white;
+        text-shadow: black;
+    }
+    
+    .columns2 {
+        display: flex;
+        width: 100%;
+        text-align: left;
+        padding: 10px;
+        margin-top: -50px;
+        justify-content: space-evenly;
+    }
+
+    .text2 {
+        font-family: "Georgia Regular";
+        display: flex;
+        width: 100%;
+        flex: 1;
+        padding: 10px;
+    }
+    
+
+    #text-col1-2 , #text-col2-2, #text-col3-2 {
+        flex: display;
+        flex: 25%;
+    }
+    
+    .side-info2 {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        flex: .25;
+        padding: 10px;
+        margin-top: -5px;
+    }
+    
+    .h3-2, #top-text2 {
+        background-color: #F76902;
+    } 
+
+    #top-text2 {
+        margin-top: -19px;
+    }
+    
+    #bottom-text2 {
+        background-color: #d0d3d4;
+        color: black;
+        margin-top: -10px;
+    }
+    
+    .footer2 {
+        align-items: left;
+        margin-bottom: 1rem;
+    }
+
+    #track-image2{
+        margin-top:-40px;
+        width:100%;
+        height: auto;
+        position: absolute;
+        z-index: -1;
+    }
+    
+}
+
+@media (max-width: 1151px ){
+    .container1 {
+        max-width: 700px;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .header1, .main1, .footer1 {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .header1 {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        align-items: left;
+        margin-top: -4rem;
+        max-width: 700px;
+        margin-left: -8px;
+    }
+    
+    #top-title1 {
+        background-color: #F76902;
+        font-size: 75px;
+        max-width: 545px;
+    }
+
+    #stadium-image1 {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        margin-top: -210px;
+        margin-left: 10px;
+        position: relative;
+        width: 100%;
+        height: auto;
+        z-index: -1;
+    }
+
+
+    .description1 {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        font-size: 25px;
+        padding-left: 3%;
+        margin-top: -95px;
+        max-width: 600px;
+        align-self: flex-start;
+
+    }
+    
+    #top-description1 {
+        color: white;
+        text-shadow: black;
+    }
+    
+    .columns1 {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 600px;
+        text-align: left;
+        padding: 10px;
+        margin-top: -50px;
+        justify-content: space-evenly;
+    }
+
+    .text1 {
+        font-family: "Georgia Regular";
+        display: flex;
+        flex-direction: column;
+        padding-left: 10px;
+        width: 100%;
+        flex: 1;
+    }
+    
+
+    #text-col1-1 , #text-col2-1, #text-col3-1 {
+        flex: display;
+        flex: 25%;
+    }
+    
+    .side-info1 {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        flex: .25;
+        padding: 10px;
+        margin-top: -5px;
+    }
+    
+    .h3-1, #top-text1 {
+        background-color: #F76902;
+    } 
+
+    #top-text1 {
+        margin-top: -19px;
+    }
+    
+    #bottom-text1 {
+        background-color: #d0d3d4;
+        color: black;
+        margin-top: -10px;
+    }
+    
+    .footer1 {
+        align-items: left;
+        margin-bottom: 1rem;
+    }
+
+    #track-image1{
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        margin-top:-40px;
+        margin-left: 50px;
+        width:100%;
+        height: auto;
+        position: relative;
+        z-index: -1;
+    }
+
+    .container2 {
+        max-width: 700px;
+        margin: 0 auto;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5em;
+    }
+
+    .header2, .main2, .footer2 {
+        width: 100%;
+        max-width: 600px;
+    }
+
+    .header2 {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        align-items: left;
+        margin-top: -4rem;
+        max-width: 700px;
+        margin-left: -8px;
+    }
+    
+    #top-title2 {
+        background-color: #F76902;
+        font-size: 75px;
+        max-width: 560px;
+    }
+
+    #stadium-image2 {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        margin-top: -137px;
+        margin-left: 10px;
+        position: relative;
+        width: 100%;
+        height: auto;
+        z-index: -1;
+    }
+
+
+    .description2 {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        font-size: 25px;
+        padding-left: 3%;
+        margin-top: -90px;
+        max-width: 400px;
+        align-self: flex-start;
+
+    }
+    
+    #top-description2 {
+        color: white;
+        text-shadow: black;
+    }
+    
+    .columns2 {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 600px;
+        text-align: left;
+        padding: 10px;
+        margin-top: -50px;
+        justify-content: space-evenly;
+    }
+
+    .text2 {
+        font-family: "Georgia Regular";
+        display: flex;
+        flex-direction: column;
+        padding-left: 10px;
+        width: 100%;
+        flex: 1;
+    }
+    
+
+    #text-col1-2 , #text-col2-2, #text-col3-2 {
+        flex: display;
+        flex: 25%;
+    }
+    
+    .side-info2 {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        flex: .25;
+        padding: 10px;
+        margin-top: -5px;
+    }
+    
+    .h3-2, #top-text2 {
+        background-color: #F76902;
+    } 
+
+    #top-text2 {
+        margin-top: -19px;
+    }
+    
+    #bottom-text2 {
+        background-color: #d0d3d4;
+        color: black;
+        margin-top: -10px;
+    }
+    
+    .footer2 {
+        align-items: left;
+        margin-bottom: 1rem;
+    }
+
+    #track-image2 {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        margin-top:-40px;
+        margin-left: 50px;
+        width:100%;
+        height: auto;
+        position: relative;
+        z-index: -1;
+    }
+}
+
+
+
+
