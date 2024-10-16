@@ -1,9 +1,73 @@
 
 @media (min-width: 1152px ){
+    .about {
+        max-width: 1080px;
+        padding: 20px;
+        margin: 0 auto;
+        margin-top:-40px;
+    }
+
+    #aboutMe {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        background-color: #F76902;
+        font-size: 75px;
+        max-width: 345px;
+    }
+
+    #aboutMeText {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        font-size: 45px;
+        padding-left: 3%;
+        margin-top: -45px;
+        align-self: flex-start;
+    }
+
+    #profilePic {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        margin-left: 270px;
+        z-index: -1;
+    }
+
+    #contact {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        background-color: #F76902;
+        font-size: 75px;
+        max-width: 305px;
+    }
+
+    #contactText {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        font-size: 45px;
+        padding-left: 3%;
+        margin-top: -45px;
+        align-self: flex-start;
+    }
+
+    #games {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        background-color: #F76902;
+        font-size: 75px;
+        max-width: 275px;
+    }
+
+    #gamesText {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        font-size: 45px;
+        padding-left: 3%;
+        margin-top: -45px;
+        align-self: flex-start;
+    }
+
     .container1 {
         max-width: 1080px;
         padding: 20px;
         margin: 0 auto;
+        margin-top: 500px;
     }
 
     .header1, .main1, .footer1 {
@@ -102,7 +166,7 @@
     }
 
     #track-image1{
-        margin-top:-40px;
+        margin-top:-30px;
         width:100%;
         height: auto;
         position: absolute;
@@ -157,7 +221,7 @@
     }
     
     #top-description2 {
-        color: white;
+        color: black;
         text-shadow: black;
     }
     
@@ -212,7 +276,7 @@
     }
 
     #track-image2{
-        margin-top:-40px;
+        margin-top:-30px;
         width:100%;
         height: auto;
         position: absolute;
@@ -222,11 +286,74 @@
 }
 
 @media (max-width: 1151px ){
+    .about {
+        max-width: 1080px;
+        padding: 20px;
+        margin: 0 auto;
+        margin-top:-40px;
+    }
+
+    #aboutMe {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        background-color: #F76902;
+        font-size: 75px;
+        max-width: 345px;
+    }
+
+    #aboutMeText {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        font-size: 45px;
+        padding-left: 3%;
+        margin-top: -45px;
+        align-self: flex-start;
+    }
+
+    #profilePic {
+        display: flex;
+        align-self: center;
+        justify-content: center;
+        z-index: -1;
+    }
+
+    #contact {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        background-color: #F76902;
+        font-size: 75px;
+        max-width: 305px;
+    }
+
+    #contactText {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        font-size: 45px;
+        padding-left: 3%;
+        margin-top: -45px;
+        align-self: flex-start;
+    }
+
+    #games {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        color: white;
+        background-color: #F76902;
+        font-size: 75px;
+        max-width: 275px;
+    }
+
+    #gamesText {
+        font-family: "Helvetica Neue", "Helvetica", "Roboto", "Arial", sans‑serif;
+        font-size: 45px;
+        padding-left: 3%;
+        margin-top: -45px;
+        align-self: flex-start;
+    }
+
     .container1 {
         max-width: 700px;
         margin: 0 auto;
         justify-content: center;
         align-items: center;
+        margin-top: 150px;
     }
 
     .header1, .main1, .footer1 {
@@ -253,7 +380,7 @@
         display: flex;
         align-self: center;
         justify-content: center;
-        margin-top: -210px;
+        margin-top: -137px;
         margin-left: 10px;
         position: relative;
         width: 100%;
@@ -334,7 +461,7 @@
         display: flex;
         align-self: center;
         justify-content: center;
-        margin-top:-40px;
+        margin-top:-30px;
         margin-left: 50px;
         width:100%;
         height: auto;
@@ -394,7 +521,7 @@
     }
     
     #top-description2 {
-        color: white;
+        color: black;
         text-shadow: black;
     }
     
@@ -455,7 +582,7 @@
         display: flex;
         align-self: center;
         justify-content: center;
-        margin-top:-40px;
+        margin-top:-30px;
         margin-left: 50px;
         width:100%;
         height: auto;
