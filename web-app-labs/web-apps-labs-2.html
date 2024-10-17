@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+	<title>DOM-3</title>
+	<style>
+		body{border:1px solid gray;}
+		p b{transform: rotate(20deg)}
+	</style>
+</head>
+<body>
+<h1>My Page</h1>
+<h2>Info</h2>
+<h2>Pictures</h2>
+<h2>More Info</h2>
+<p>Blah <b>Blah</b> Blah</p>
+<p>Blah <b>Blah</b> Blah</p>
+<p id="lastParagraph">Blah <b>Blah</b> Blah</p>
+<footer>Copyright &copy; <b>20XX</b></footer>
+<script>
+	"use strict"; 
+  
+  // add your own code here.
+	document.querySelector('h1').innerHTML = "My UFO Page";
+    const heading2 = document.querySelectorAll('h2');
+    heading2[0].innerHTML = "My UFO Info";
+    heading2[1].innerHTML = "My UFO Pictures";
+    heading2[2].innerHTML = "";
+    document.body.style.fontFamily = "sans-serif";
+    document.body.style.color = "#FF2400";
+    const paragraphs = document.querySelectorAll('p');
+    paragraphs[0].innerHTML = "Report your UFO sightings here: <a href = 'https://nuforc.org/'>https://nuforc.org/</a>";
+    paragraphs[0].style.color = "green";
+    paragraphs[0].style.fontWeight = "bold";
+    paragraphs[0].style.fontSize = "2em";
+    paragraphs[0].style.textTransform = "uppercase";
+    paragraphs[0].style.textShadow = "3px 2px #A44";
+    paragraphs[1].innerHTML = "";
+    paragraphs[1].innerHTML = "<img src = 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.newyorker.com%2Fculture%2Fphoto-booth%2Fthe-enticing-mysteries-of-ufo-photography&psig=AOvVaw39WHcwT6uIIPRFYyJv6_RD&ust=1729257138261000&source=images&cd=vfe&opi=89978449&ved=0CBcQjhxqFwoTCOD6x_6-lYkDFQAAAAAdAAAAABAE' alt = 'UFO'>";
+
+</script>
+</body>
+</html>
