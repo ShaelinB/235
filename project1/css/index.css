@@ -2,6 +2,8 @@ body {
     background-color: #0b0c0e;
 }
 
+
+
 @media (min-width: 1152px ){
     .about {
         max-width: 1080px;
@@ -137,7 +139,7 @@ body {
     }
     
 
-    #text-col1-1 , #text-col2-1, #text-col3-1 {
+    #text-col1-1{
         flex: 25%;
         color: #a7b6c3;
     }
@@ -244,7 +246,7 @@ body {
     }
     
 
-    #text-col1-2 , #text-col2-2, #text-col3-2 {
+    #text-col1-2{
         flex: 25%;
         color: #a7b6c3;
     }
@@ -426,7 +428,7 @@ body {
     }
     
 
-    #text-col1-1 , #text-col2-1, #text-col3-1 {
+    #text-col1-1 {
         flex: 25%;
         color: #a7b6c3;
     }
@@ -544,7 +546,7 @@ body {
     }
     
 
-    #text-col1-2 , #text-col2-2, #text-col3-2 {
+    #text-col1-2 {
         flex: 25%;
         color: #a7b6c3;
     }
