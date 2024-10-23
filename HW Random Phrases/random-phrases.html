@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Random Phrases</title>
+    <link rel = "stylesheet" href = "random-phrases.css">
+</head>
+<body>
+    <header>
+        <h1>Advice From Yoda</h1>
+    </header>
+
+    <main>
+        <div id = "img-container">
+            <img src = "https://fictionalinterviews.com/wp-content/uploads/2014/02/yoda4.jpg" alt = "Yoda and Luke">
+        </div>
+        <p id = "quote">quote</p>
+    </main>
+
+    <footer>
+        <button>More Advice</button>
+        <p id = "name">Shaelin Brown</p>
+    </footer>
+
+    <script>
+        const phrases = [
+           "If in anger you answer, then in shame you dwell.",
+           "In a dark place we find ourselves, and a little more knowledge lights our way.",
+           "Train yourself to let go of everything you fear to lose.",
+           "Do or do not. There is no try.",
+           "Difficult to see. Always in motion is the future."
+       ];
+       
+       function displayQuote() {
+           const phraseIndex = Math.floor(Math.random()*phrases.length);
+           document.getElementById("quote").innerHTML = phrases[phraseIndex];
+       }
+       
+       window.onload = displayQuote();
+       
+       document.querySelector('button').addEventListener('click', displayQuote);
+       </script>
+</body>
+</html>

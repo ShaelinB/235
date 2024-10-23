@@ -1,0 +1,183 @@
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Playpen+Sans:wght@100..800&family=Shadows+Into+Light&family=Teko:wght@300..700&display=swap');
+
+@media (min-width: 769px)
+{
+    body {
+        background-color: #343630;
+        font-family: "Bebas Neue", sans-serif;
+    }
+    
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px auto;
+        text-align: center;
+        color: #7F746E;
+        font-size: 40px;
+    }
+    
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px auto;
+        max-width: 1280px;
+    }
+    
+    #img-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+    }
+    
+    img {
+        width: 100%;
+        height: auto;
+    }
+    
+    #quote {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-top: -100px;
+        background-color: #4B453C;
+        color: #8D7F6F;
+        font-size: 35px;
+    }
+    
+    footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px auto;
+        text-align: center;
+        margin-top: 30px;
+    }
+    
+    button {
+        background-color: #4B453C;
+        color: #8D7F6F;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 25px;
+        margin-right:10px;
+        font-family: "Bebas Neue", sans-serif;
+    }
+    
+    button:hover {
+        background-color: #96897A;
+        color: #4B453C;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 25px;
+        font-family: "Bebas Neue", sans-serif;
+    }
+    
+    button:active {
+        background-color: #3E3F3B;
+        color: #96897A;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 25px;
+        font-family: "Bebas Neue", sans-serif;
+    }
+    
+    #name {
+        color: #7F746E;
+        font-size: 25px;
+    }
+}
+
+@media (max-width: 768px)
+{
+    body {
+        background-color: #343630;
+        font-family: "Bebas Neue", sans-serif;
+    }
+    
+    header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 10px auto;
+        text-align: center;
+        color: #7F746E;
+        font-size: 30px;
+    }
+    
+    main {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 20px auto;
+        max-width: 1280px;
+    }
+    
+    #img-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        max-width: 100%;
+    }
+    
+    img {
+        width: 100%;
+        height: auto;
+    }
+    
+    #quote {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-top: -50px;
+        background-color: #4B453C;
+        color: #8D7F6F;
+        font-size: 20px;
+    }
+    
+    footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 20px auto;
+        text-align: center;
+        margin-top: 10px;
+    }
+    
+    button {
+        background-color: #4B453C;
+        color: #8D7F6F;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 15px;
+        margin-right:10px;
+        font-family: "Bebas Neue", sans-serif;
+    }
+    
+    button:hover {
+        background-color: #96897A;
+        color: #4B453C;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 15px;
+        font-family: "Bebas Neue", sans-serif;
+    }
+    
+    button:active {
+        background-color: #3E3F3B;
+        color: #96897A;
+        padding: 10px 20px;
+        text-align: center;
+        font-size: 15px;
+        font-family: "Bebas Neue", sans-serif;
+    }
+    
+    #name {
+        color: #7F746E;
+        font-size: 15px;
+    }
+}
