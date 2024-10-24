@@ -89,25 +89,16 @@
 
 	let images = document.querySelectorAll('span');
 	let image = document.getElementById("placeholder");
+	let description = document.getElementById("description");
 
 	function switchImage(e)
 	{
-		for (let i = 0; i<images.length; i++)
-		{
-			if(e.title == images[i].title)
-			{
-				image.src = images[i].src;
-				break;
-			}
-			else
-			{
-				image.src = "images/placeholder.gif";
-			}
-		}
+		image.src = `images/${e.target.dataset.image}`;
+		description.textContent = e.target.title;
 	}
 
 	images.forEach(element=> {
-		element.addEventListener('change', switchImage);
+		element.addEventListener('click', switchImage);
 	})
 	</script>
 	   
