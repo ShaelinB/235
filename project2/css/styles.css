@@ -1,0 +1,37 @@
+body {
+    margin: 20px;
+}
+
+.widgets {
+    margin-bottom: 10px;
+    font-size: 18px;
+}
+
+h1 {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#searchterm {
+    padding: 5px;
+    font-size: 16px;
+}
+
+button {
+    padding: 5px 10px;
+    font-size: 16px;
+}
+
+select {
+    padding: 5px;
+    font-size: 16px;
+}
+
+#status {
+    font-size: 18px;
+}
+
+#output {
+    margin-top: 20px;
+    font-size: 18px;
+}
