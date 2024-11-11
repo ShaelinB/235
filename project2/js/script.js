@@ -1,4 +1,19 @@
-window.onload = (e) => {document.getElementById('searchButton').onclick = onClick};
+window.onload = (e) => {
+    let pokemonName = document.getElementById('searchterm');
+    let generation = document.getElementById('generation');
+
+    if(localStorage.getItem('searchterm'))
+    {
+        pokemonName.value = localStorage.getItem('searchterm');
+    }
+
+    if(localStorage.getItem('generation'))
+    {
+        generation.value = localStorage.getItem('generation');
+    }
+
+    document.getElementById('searchButton').onclick = onClick;
+};
 
 async function onClick()
 {
@@ -8,6 +23,9 @@ async function onClick()
     let infoType = document.getElementById('information').value;
     let status = document.getElementById('status');
     let output = document.getElementById('output');
+
+    localStorage.setItem('searchterm', pokemonName);
+    localStorage.setItem('generation', generation.value);
 
     let generationURL = "https://pokeapi.co/api/v2/generation/"+generation.value+"/";
     let pokemonURL =  await getGenerationData(generationURL,pokemonName);
@@ -26,12 +44,21 @@ async function onClick()
         let statsObj = await getStats(statsURL);
         let baseStats = statsObj.stats;
         let typeArr = statsObj.types;
-        output.innerHTML = "<b>Types:</b> ";
+        output.innerHTML = "<h2>Stats:</h2>"
+        output.innerHTML += "<b>Types:</b> ";
         for (let i = 0; i < typeArr.length; i++)
             {
-                output.innerHTML += typeArr[i].type.name + "<br>";
+                if (i === 0)
+                {
+                    output.innerHTML += typeArr[i].type.name;
+                }
+                else
+                {
+                    output.innerHTML += ", "+typeArr[i].type.name;
+                }
+                
             }
-        output.innerHTML += "<br>"
+        output.innerHTML += "<br><br>"
         for (let i = 0; i < baseStats.length; i++)
         {
             output.innerHTML+= "<b>"+ baseStats[i].stat.name + ":</b> " + baseStats[i].base_stat + "<br>";
@@ -42,15 +69,15 @@ async function onClick()
     {
         let evolutionURL = await getToEvolutionData(pokemonURL)
         let evolutionObj = await getEvolutionData(evolutionURL);
-        let evolvesTo = evolutionObj.chain.evolves_to;
-        if (evolvesTo.length>0)
+        let evolvesTo = evolutionObj.chain;
+        if (evolvesTo.evolves_to.length > 0)
         {
-            output.innerHTML = "<h2>Evolves To: <h2>";
-            displayEvolution(evolvesTo,output,pokemonName);
+            output.innerHTML = "<h2>Evolution Tree: </h2>";
+            displayEvolution(evolvesTo,output);
         }
         else
         {
-            output.innerHTML = "<h2>There is no evolution for this pokemon.<h2>";
+            output.innerHTML = "<h2>There are no evolution for this pokemon.<h2>";
         }
         
         
@@ -126,9 +153,23 @@ async function getEvolutionData(evolutionURL)
     }
 }
 
-function displayEvolution(evolvesTo, output, pokemonName)
+function displayEvolution(evolvesTo, output, level = 0)
 {
-    
+    let element = document.createElement('p');
+        element.innerHTML = '&nbsp;'.repeat(level*4) + "- " + evolvesTo.species.name;
+        output.appendChild(element);
+
+    if(evolvesTo.evolves_to.length > 0)
+    {
+        for (let i = 0; i < evolvesTo.evolves_to.length; i++)
+        {
+            displayEvolution(evolvesTo.evolves_to[i],output,level+1);
+        }
+    }
+    else if (level === 0)
+    {
+        output.innerHTML = "There are no evolutions for this pokemon";
+    }
 }
 
 function dataError(e)

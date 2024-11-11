@@ -1,6 +1,26 @@
-reference api links: 
-https://pokeapi.co/api/v2/generation/5/
-https://pokeapi.co/api/v2/pokemon-species/eevee/
-https://pokeapi.co/api/v2/evolution-chain/67/
-https://pokeapi.co/api/v2/pokemon-species/munna/
-https://pokeapi.co/api/v2/pokemon/517/
+<h1>Documentation</h1>
+<p>API : <a link href = "https://pokeapi.co/docs/v2">PokeAPI</a></p>
+
+<ul>
+Reference JSON links for Pikachu:
+<li><a link href = "https://pokeapi.co/api/v2/generation/1/">JSON that contains all the pokemon in a specific generation</a></li>
+<li><a link href = "https://pokeapi.co/api/v2/pokemon-species/25/">JSON that contains the url to the evolution chain for that pokemon</a></li>
+<li><a link href = "https://pokeapi.co/api/v2/evolution-chain/10/">JSON that contains the evolution chain for that pokemon</a></li>
+<li><a link href = "https://pokeapi.co/api/v2/pokemon/pikachu/">JSON that contains the stats for that pokemon</a></li>
+</ul>
+
+<p>
+    Process of gathering information:<br>
+    1. The user enters a pokemon and the generation their in and selects what type of info they want to recieve <br>
+    2. Once the user hits select it makes a link using the generation. <br>
+    3. That link is used to check if that pokemon is in that generation. If it isn't it displays an error, otherwise it retrieves the link for the species <br>
+    <br>
+    If you chose stats: <br>
+    4. Once you check if that pokemon exists it creates a new link specific to the pokemon <br>
+    5. This link contains the data for it's type and base stats. <br>
+    6. Displays data <br>
+    <br>    
+    If you chose evolution:<br>
+    4. Using that link you can get to the evolution chain for that species. <br>
+    5. Displays data using a recursive method to go through the whole evolution tree. <br>
+</p>

@@ -14,49 +14,44 @@
         </h1>
     </header>
 
-    <div class = "widgets">
-        Choose your Pokemon: 
-        <input id = "searchterm" type = "text" size = "20"/>
-        <button id = "searchButton">Select</button>
-    </div>
+    <main>
+        <div class = "widgets">
+            Choose your Pokemon: 
+            <input id = "searchterm" type = "text" size = "20"/>
+            <button id = "searchButton">Select</button>
+        </div>
+    
+        <div class = "widgets">
+            Generation: 
+            <select id = "generation">
+                <option value = "1">I</option>
+                <option value = "2">II</option>
+                <option value = "3">III</option>
+                <option value = "4">IV</option>
+                <option value = "5">V</option>
+                <option value = "6">VI</option>
+                <option value = "7">VII</option>
+                <option value = "8">VIII</option>
+                <option value = "9">IX</option>
+            </select>
+    
+            Information:
+            <select id = "information">
+                <option value = "stats">Stats</option>
+                <option value = "evolution">Evolutions</option>
+            </select>
+        </div>
+    
+        <div id = "status">
+            Please choose a Pokemon
+        </div>
+    
+        <div id = "output"></div>
+    </main>
 
-    <!-- <div class = "widgets">
-        <button id = "searchButton">Select</button>
-    </div> -->
-
-    <div class = "widgets">
-        Generation: 
-        <select id = "generation">
-            <option value = "1">I</option>
-            <option value = "2">II</option>
-            <option value = "3">III</option>
-            <option value = "4">IV</option>
-            <option value = "5">V</option>
-            <option value = "6">VI</option>
-            <option value = "7">VII</option>
-            <option value = "8">VIII</option>
-            <option value = "9">IX</option>
-        </select>
-
-        Information:
-        <select id = "information">
-            <option value = "stats">Stats</option>
-            <option value = "evolution">Evolutions</option>
-        </select>
-    </div>
-
-    <!-- <div class = "widgets">
-        Information:
-        <select id = "information">
-            <option value = "stats">Stats</option>
-            <option value = "evolution">Evolutions</option>
-        </select>
-    </div> -->
-
-    <div id = "status">
-        Please choose a Pokemon
-    </div>
-
-    <div id = "output"></div>
+    <footer>
+        <a link href = "documentation.html">Documentation</a>
+    </footer>
+    
 </body>
 </html>
