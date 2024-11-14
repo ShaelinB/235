@@ -54,6 +54,7 @@ let score = 0;
 let life = 100;
 let levelNum = 1;
 let paused = true;
+let gameOverScoreLabel = score;
 
 function setup() {
 	stage = app.stage;
@@ -190,6 +191,20 @@ function createLabelsAndButtons()
     gameOverText.y = sceneHeight/2 - 160;
     gameOverScene.addChild(gameOverText);
 
+    //game over score label
+    gameOverScoreLabel = new PIXI.Text("Your final score: " + score);
+    textStyle = new PIXI.TextStyle({
+	    fill: 0xFFFFFF,
+	    fontSize: 32,
+	    fontFamily: "Futura",
+	    stroke: 0xFF0000,
+	    strokeThickness: 6
+    });
+    gameOverScoreLabel.style = textStyle;
+    gameOverScoreLabel.x = 150;
+    gameOverScoreLabel.y = sceneHeight/2;
+    gameOverScene.addChild(gameOverScoreLabel);
+
     // 3B - make "play again?" button
     let playAgainButton = new PIXI.Text("Play Again?");
     playAgainButton.style = buttonStyle;
@@ -210,7 +225,7 @@ function startGame()
     gameOverScene.visible = false;
     gameScene.visible = true;
     
-    app.view.onclick = fireBullet;
+    app.view.onclick = () => fireBullet(levelNum);
     levelNum = 1;
     score = 0;
     life = 100;
@@ -370,13 +385,29 @@ function end()
     gameScene.visible = false;
 }
 
-function fireBullet() 
+function fireBullet(levelNum) 
 {
     if(paused) return;
 
-    let b = new Bullet(0xffffff, ship.x, ship.y);
-    bullets.push(b);
-    gameScene.addChild(b);
+    if (levelNum > 1)
+    {
+        const angles = [285,270,255];
+        for (let i = 0; i < 3; i++)
+        {
+            let b = new Bullet(0xffffff, ship.x, ship.y);
+            let radians = angles[i] * Math.PI / 180;
+            b.fwd.x = Math.cos(radians);
+            b.fwd.y = Math.sin(radians);
+            bullets.push(b);
+            gameScene.addChild(b);
+        }
+    }
+    else
+    {
+        let b = new Bullet(0xffffff, ship.x, ship.y);
+        bullets.push(b);
+        gameScene.addChild(b);
+    }
     shootSound.play();
 }
 
