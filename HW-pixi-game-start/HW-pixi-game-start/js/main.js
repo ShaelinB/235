@@ -92,7 +92,7 @@ function setup() {
     });
 	
 	// #7 - Load sprite sheet
-		
+	explosionTextures = loadSpriteSheet();
 	// #8 - Start update loop
     app.ticker.add(gameLoop);
 	
@@ -293,7 +293,7 @@ function gameLoop()
             if(rectsIntersect(c,b))
             {
                 fireballSound.play();
-                //createExplosion(c.x,c.y,64,64); we will implement this soon
+                createExplosion(c.x,c.y,64,64);
                 gameScene.removeChild(c);
                 c.isAlive = false;
                 gameScene.removeChild(b);
@@ -378,4 +378,34 @@ function fireBullet()
     bullets.push(b);
     gameScene.addChild(b);
     shootSound.play();
+}
+
+function loadSpriteSheet()
+{
+    let spriteSheet = PIXI.Texture.from("images/explosions.png");
+    let width = 64;
+    let height = 64;
+    let numFrames = 16;
+    let textures = [];
+    for (let i = 0; i < numFrames; i++)
+    {
+        let frame = new PIXI.Texture(spriteSheet.baseTexture, new PIXI.Rectangle(i*width, 64, width, height));
+        textures.push(frame);
+    }
+    return textures;
+}
+
+function createExplosion(x, y, frameWidth, frameHeight)
+{
+    let w2 = frameWidth/2;
+    let h2 = frameHeight/2;
+    let expl = new PIXI.AnimatedSprite(explosionTextures);
+    expl.x = x - w2; //we want the center of the explosion to be at the center of the circle
+    expl.y = y - h2; //same for height
+    expl.animationSpeed = 1/7;
+    expl.loop = false;
+    expl.onComplete = () => gameScene.removeChild(expl);
+    explosions.push(expl);
+    gameScene.addChild(expl);
+    expl.play();
 }
