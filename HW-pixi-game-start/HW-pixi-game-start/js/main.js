@@ -210,7 +210,7 @@ function startGame()
     gameOverScene.visible = false;
     gameScene.visible = true;
     
-    //app.view.onClick = fireBullet; we'll get to this later
+    app.view.onclick = fireBullet;
     levelNum = 1;
     score = 0;
     life = 100;
@@ -266,25 +266,42 @@ function gameLoop()
     for (let c of circles) 
     {
         c.move(dt);
-        if (c.x < c.radius || c.x . sceneWidth - c.radius)
+        if (c.x < c.radius || c.x > sceneWidth - c.radius)
         {
-            c.ReflectX();
+            c.reflectX();
             c.move(dt);
         }
-        if (c.y < c.radius || c.y . sceneWidth - c.radius)
+        if (c.y < c.radius || c.y > sceneHeight - c.radius)
             {
-                c.ReflectY();
+                c.reflectY();
                 c.move(dt);
             }
     }
   
     // #4 - Move Bullets
+    for (let b of bullets) {
+        b.move(dt);
+    }
   
   
     // #5 - Check for Collisions
     for (let c of circles)
     {
         // 5A - circles & bullets
+        for (let b of bullets)
+        {
+            if(rectsIntersect(c,b))
+            {
+                fireballSound.play();
+                //createExplosion(c.x,c.y,64,64); we will implement this soon
+                gameScene.removeChild(c);
+                c.isAlive = false;
+                gameScene.removeChild(b);
+                b.isAlive = false;
+                increaseScoreBy(1);
+                break;
+            }
+        }
 
         // 5B - circles & ship
         if (c.isAlive && rectsIntersect(c,ship))
@@ -307,9 +324,16 @@ function gameLoop()
     explosions = explosions.filter((e) => e.playing);
   
     // #7 - Is game over?
-  
+    if (life <= 0){
+        end();
+        return; // return here so we skip #8 below
+    }
   
     // #8 - Load next level
+    if (circles.length == 0) {
+        levelNum++;
+        loadLevel();
+    }
 }
 
 function createCircles(numCircles = 10)
@@ -327,3 +351,31 @@ function createCircles(numCircles = 10)
 function loadLevel(){
     createCircles(levelNum * 5);
   }
+
+function end() 
+{
+    paused = true;
+
+    //clear out level
+    circles.forEach((c) => gameScene.removeChild(c));
+    circles = [];
+
+    bullets.forEach((b) => gameScene.removeChild(b));
+    bullets = [];
+
+    explosions.forEach((e) => gameScene.removeChild(e));
+    explosions = [];
+
+    gameOverScene.visible = true;
+    gameScene.visible = false;
+}
+
+function fireBullet() 
+{
+    if(paused) return;
+
+    let b = new Bullet(0xffffff, ship.x, ship.y);
+    bullets.push(b);
+    gameScene.addChild(b);
+    shootSound.play();
+}

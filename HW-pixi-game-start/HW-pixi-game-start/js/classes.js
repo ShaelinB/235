@@ -15,9 +15,8 @@ class Circle extends PIXI.Graphics
     constructor(radius, color = 0xff0000, x = 0, y = 0)
     {
         super();
-        //gives an error
-        this.fill(color);
-        this.circle(x, y, radius);
+        this.beginFill(color);
+        this.drawCircle(x, y, radius);
         this.x = x;
         this.y = y;
         this.radius = radius;
@@ -40,5 +39,27 @@ class Circle extends PIXI.Graphics
     reflectY()
     {
         this.fwd.y *= -1;
+    }
+}
+
+class Bullet extends PIXI.Graphics {
+    constructor(color = 0xffffff, x = 0, y = 0)
+    {
+        super();
+        this.beginFill(color);
+        this.drawRect(-2,-3,4,6);
+        this.x = x;
+        this.y = y;
+
+        this.fwd = {x: 0, y: -1};
+        this.speed = 400;
+        this.isAlive = true;
+        Object.seal(this);
+    }
+
+    move(dt = 1/60)
+    {
+        this.x += this.fwd.x * this.speed * dt;
+        this.y += this.fwd.y * this.speed * dt;
     }
 }
