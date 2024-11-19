@@ -31,6 +31,9 @@ async function onClick()
     let output = document.querySelector('#output');
     let pokemonImage = document.querySelector('img');
 
+    //sets the status to searching
+    status.innerHTML = "Searching for " + pokemonName;
+
     //sets the local storage to the values in the search bar and generation pull down whenever the search button is clicked
     localStorage.setItem('searchterm', pokemonName);
     localStorage.setItem('generation', generation.value);
