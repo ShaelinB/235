@@ -30,6 +30,8 @@ async function onClick()
     let status = document.querySelector('#status');
     let output = document.querySelector('#output');
     let pokemonImage = document.querySelector('img');
+    pokemonImage.src = "";
+    pokemonImage.alt = "";
 
     //sets the status to searching
     status.innerHTML = "Searching for " + pokemonName;
@@ -41,12 +43,11 @@ async function onClick()
     //creates the first url that is used to see if that pokemon exists
     let generationURL = "https://pokeapi.co/api/v2/generation/"+generation.value+"/";
     let pokemonURL =  await getGenerationData(generationURL,pokemonName);
+
     if (pokemonURL == null)
     {
         status.innerHTML= pokemonName+" was not found. Did you spell it right and are you in the right generation?";
         output.innerHTML = "";
-        pokemonImage.src = "";
-        pokemonImage.alt = "";
         console.log("inncorrect pokemon")
         return;
     }
