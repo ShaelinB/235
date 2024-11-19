@@ -67,6 +67,12 @@
         margin-top: 20px;
         font-size: 24px;
     }
+
+    img {
+        margin-top: 2%;
+        width: 288px;
+        height: auto;
+    }
     
     footer {
         display: flex;
@@ -159,6 +165,12 @@
     #output {
         margin-top: 16px;
         font-size: 10px;
+    }
+
+    img {
+        margin-top: 2%;
+        width: 192px;
+        height: auto;
     }
     
     footer {

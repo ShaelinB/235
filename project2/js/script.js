@@ -29,6 +29,7 @@ async function onClick()
     let infoType = document.querySelector('#information').value;
     let status = document.querySelector('#status');
     let output = document.querySelector('#output');
+    let pokemonImage = document.querySelector('img');
 
     //sets the local storage to the values in the search bar and generation pull down whenever the search button is clicked
     localStorage.setItem('searchterm', pokemonName);
@@ -41,6 +42,8 @@ async function onClick()
     {
         status.innerHTML= pokemonName+" was not found. Did you spell it right and are you in the right generation?";
         output.innerHTML = "";
+        pokemonImage.src = "";
+        pokemonImage.alt = "";
         console.log("inncorrect pokemon")
         return;
     }
@@ -54,6 +57,7 @@ async function onClick()
         let statsObj = await getStats(statsURL);
         let baseStats = statsObj.stats;
         let typeArr = statsObj.types;
+        let image = statsObj.sprites.front_default;
         output.innerHTML = "<h2>Stats:</h2>"
         output.innerHTML += "<b>Types:</b> ";
         //loops through the array and displays all the types the pokemon is
@@ -75,6 +79,9 @@ async function onClick()
         {
             output.innerHTML+= "<b>"+ baseStats[i].stat.name + ":</b> " + baseStats[i].base_stat + "<br>";
         }
+        pokemonImage.src = image;
+        pokemonImage.alt = pokemonName;
+
         
     }
     //if the user selects evolution on the information drop down
