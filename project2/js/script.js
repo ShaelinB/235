@@ -57,7 +57,7 @@ async function onClick()
         let statsObj = await getStats(statsURL);
         let baseStats = statsObj.stats;
         let typeArr = statsObj.types;
-        let image = statsObj.sprites.front_default;
+        let imageSrc = statsObj.sprites.front_default;
         output.innerHTML = "<h2>Stats:</h2>"
         output.innerHTML += "<b>Types:</b> ";
         //loops through the array and displays all the types the pokemon is
@@ -79,7 +79,7 @@ async function onClick()
         {
             output.innerHTML+= "<b>"+ baseStats[i].stat.name + ":</b> " + baseStats[i].base_stat + "<br>";
         }
-        pokemonImage.src = image;
+        pokemonImage.src = imageSrc;
         pokemonImage.alt = pokemonName;
 
         
