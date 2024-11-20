@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+    <title>Word Magnets</title>
+    <link rel = "stylesheet" href = "styles.css">
+ 	<script>
+ 	// Yes the script tag is in the head section, leave it here.
+ 	
+ 	{ // ES6 Block Scope
+        let selectedElement = null;
+
+        const TRAY_POSITION = {x:50,y:500};
+        const MAX_WORD_LEFT = 770;
+        const LINE_HEIGHT = 30;
+        const WORD_MARGIN = 10;
+        const WORD_SPACING = 8;
+        const MAX_Z_INDEX = 1000;
+
+        window.onload = function(){
+            positionWords();
+            setupStartingPoem();
+            setupDragging();
+        }
+
+        function setupStartingPoem(){
+            setPosition(getWord("gibber"),150,100);
+            setPosition(getWord("gibber"),150,100);
+            setPosition(getWord("ing"),210,100);
+            setPosition(getWord("Professor"),253,103);
+            setPosition(getWord("meep"),350,100);
+            setPosition(getWord("s"),390,100);
+
+            setPosition(getWord("disagreeable"),200,162);
+            setPosition(getWord("ly"),290,162);
+            setPosition(getWord("eternal"),330,160);
+
+            setPosition(getWord("eldritch"),260,230);
+            setPosition(getWord("cyclopean"),270,280);
+            setPosition(getWord("horror"),275,330);
+        }
+
+        function setPosition(word,wordLeft,wordTop){
+            word.style.left = wordLeft + "px";
+            word.style.top = wordTop + "px";
+        }
+
+        function getWord(text){
+            let allWords = document.querySelectorAll(".word");
+            for (let word of allWords){
+                if(word.textContent == text){
+                    return word;
+                }
+            }
+        }
+
+        function positionWords(){
+            let doMousedown = function(e){
+            e.preventDefault();
+            selectedElement = e.target;
+            selectedElement.style.zIndex = MAX_Z_INDEX;
+            };
+
+            let allWords = document.querySelectorAll(".word");
+            let wordSpacing = WORD_SPACING;
+            let wordLeft = WORD_MARGIN;
+            let wordTop = TRAY_POSITION.y;
+
+            for (let word of allWords){
+                setPosition(word, wordLeft, wordTop);
+                let wordWidth = word.clientWidth;
+                wordLeft += wordWidth + wordSpacing;
+                if (wordLeft >= MAX_WORD_LEFT){
+                    wordLeft = WORD_MARGIN;
+                    wordTop += LINE_HEIGHT;
+                }
+                word.onmousedown = doMousedown;
+            }
+            document.querySelector("#title1").onmousedown = doMousedown;
+            document.querySelector("#title2").onmousedown = doMousedown;
+            document.querySelector("#title3").onmousedown = doMousedown;
+            document.querySelector("#title4").onmousedown = doMousedown;
+            document.querySelector("#title5").onmousedown = doMousedown;
+        }
+
+        function setupDragging(){
+            document.onmousemove = function(e){
+                e.preventDefault();
+                if(selectedElement){
+                    let mousePos = getMousePos(document.body, e);
+
+                    mousePos.x -= selectedElement.clientWidth/2;
+                    mousePos.y -= selectedElement.clientHeight/2;
+
+                    setPosition(selectedElement,mousePos.x,mousePos.y);
+                }
+            };
+
+            document.onmouseup = function(e){
+                if(selectedElement){
+                    selectedElement.style.zIndex = MAX_Z_INDEX -1;
+                }
+                selectedElement = null;
+            };
+        }
+
+        function getMousePos(parentElement, event)
+        {
+            let rect = parentElement.getBoundingClientRect();
+            return{
+                x: event.clientX - rect.left,
+                y: event.clientY - rect.top
+            };
+        }
+
+
+ 	
+ 	} // End ES6 Block Scope
+ 	</script>
+</head>
+<body>
+	<div id="container">
+    	<div id="fridge"></div>
+    	<div id="sidebar">
+    		<p class="titleWord" id="title1">Magnetic</p>
+    		<p class="titleWord" id="title2">Poetry</p>
+    		<p class="titleWord" id="title3">by</p>
+    		<p class="titleWord" id="title4">Shaelin</p>
+    		<p class="titleWord" id="title5">Brown</p>
+    		
+    	</div>
+    </div>
+   	<p class="word">eldritch</p>
+    <p class="word">cyclopean</p>
+    <p class="word">horror</p>
+    <p class="word">cosmic</p>
+    <p class="word">foetid</p>
+    <p class="word">Miskatonic</p>
+    <p class="word">charnal</p>
+    <p class="word">Professor</p>
+    <p class="word">Dr</p>
+    <p class="word">the</p>
+    <p class="word">a</p>
+    <p class="word">evil</p>
+    <p class="word">disagreeable</p>
+    <p class="word">England</p>
+    <p class="word">R'leyh</p>
+    <p class="word">Boston</p>
+    <p class="word">Providence</p>
+    <p class="word">gambrel</p>
+    <p class="word">roof</p>
+    <p class="word">ghoul</p>
+    <p class="word">gibber</p>
+    <p class="word">meep</p>
+    <p class="word">indescribable</p>
+    <p class="word">ing</p>
+    <p class="word">ing</p>
+    <p class="word">unnamable</p>
+    <p class="word">squamous</p>
+    <p class="word">rugose</p>
+    <p class="word">dead</p>
+    <p class="word">eternal</p>
+    <p class="word">lie</p>
+    <p class="word">aeon</p>
+    <p class="word">s</p>
+    <p class="word">rise</p>
+    <p class="word">wait</p>
+    <p class="word">what</p>
+    <p class="word">which</p>
+    <p class="word">where</p>
+    <p class="word">why</p>
+    <p class="word">will</p>
+    <p class="word">unknown</p>
+    <p class="word">Necronomicon</p>
+    <p class="word">Shoggoth</p>
+    <p class="word">the</p>
+    <p class="word">strident</p>
+    <p class="word">piping</p>
+    <p class="word">crawling</p>
+    <p class="word">decayed</p>
+    <p class="word">un</p>
+    <p class="word">and</p>
+    <p class="word">and</p>
+    <p class="word">shall</p>
+    <p class="word">gas</p>
+    <p class="word">new</p>
+    <p class="word">ancient</p>
+    <p class="word">swarthy</p>
+    <p class="word">ly</p>
+    <p class="word">ed</p>
+    <p class="word">s</p>
+    <p class="word">ed</p>
+    <p class="word">flee</p>
+    <p class="word">scream</p>
+    <p class="word">he</p>
+    <p class="word">it</p>
+    <p class="word">ran</p>
+    <p class="word">curses</p>
+    <p class="word">for</p>
+</body>
+</html>
