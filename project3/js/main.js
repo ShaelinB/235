@@ -64,6 +64,9 @@ let spread = 1;
 let spreadCost = 50;
 let speedLevel = 1;
 let speedCost = 20;
+let lifeLevel = 1;
+let lifeMax = 100;
+let lifeCost = 30;
 
 function setup() {
 	stage = app.stage;
@@ -181,7 +184,7 @@ function createLabelsAndButtons()
     scoreLabel = new PIXI.Text();
     scoreLabel.style = textStyle;
     scoreLabel.x = 605;
-    scoreLabel.y = 5;
+    scoreLabel.y = 26;
     gameScene.addChild(scoreLabel);
     increaseScoreBy(0);
 
@@ -189,7 +192,7 @@ function createLabelsAndButtons()
     lifeLabel = new PIXI.Text();
     lifeLabel.style = textStyle;
     lifeLabel.x = 605;
-    lifeLabel.y = 26;
+    lifeLabel.y = 5;
     gameScene.addChild(lifeLabel);
     decreaseLifeBy(0);
 
@@ -202,9 +205,9 @@ function createLabelsAndButtons()
 
     //create upgrade buttons
     let spreadButton = new Button({
-        x: sceneWidth - 160,
+        x: sceneWidth - 175,
         y: 190,
-        sizeX: 120,
+        sizeX: 150,
         sizeY:50,
         color: 0x0000FF,
         label: `Increase Spread\n${spreadCost} Coins`,
@@ -212,21 +215,18 @@ function createLabelsAndButtons()
             if (score>=spreadCost && spread < 3) {
                 spread++;
                 score-=spreadCost;
-                scoreLabel.text = `Coins    ${score}`;
+                scoreLabel.text = `Coins       ${score}`;
                 spreadCost += 50;
 
                 if(spread >= 3)
                 {
                     //label isnt changing
-                    spreadButton.label = "No More Upgrades";
+                    spreadButton.changeText("No More Upgrades");
                 }
                 else
                 {
-                    spreadButton.label = `Increase Spread\n${spreadCost} Coins`;
+                    spreadButton.buttonText.text =`Increase Spread\n${spreadCost} Coins`;
                 }
-
-                spreadButton.label.x = spreadButton.sizeX / 2 - spreadButton.label.width / 2;
-                spreadButton.label.y = spreadButton.sizeY / 2 - spreadButton.label.height / 2;
             }
             else
             {
@@ -238,9 +238,9 @@ function createLabelsAndButtons()
     
 
     let speedButton = new Button({
-        x: sceneWidth - 160,
+        x: sceneWidth - 175,
         y: 265,
-        sizeX: 120,
+        sizeX: 150,
         sizeY: 50,
         color: 0x0000FF,
         label: `Increase Speed\n${speedCost} Coins`,
@@ -248,21 +248,18 @@ function createLabelsAndButtons()
             if (score>=speedCost && speedLevel < 3) {
                 speedLevel++;
                 score-=speedCost;
-                scoreLabel.text = `Coins    ${score}`;
+                scoreLabel.text = `Coins       ${score}`;
                 speedCost += 20;
 
                 if(speedLevel >= 3)
                 {
                     //label isnt changing
-                    speedButton.label = "No More Upgrades";
+                    speedButton.changeText("No More Upgrades");
                 }
                 else
                 {
-                    speedButton.label = `Increase Speed\n${speedCost} Coins`;
+                    speedButton.changeText(`Increase Speed\n${speedCost} Coins`);
                 }
-
-                speedButton.label.x = speedButton.sizeX / 2 - speedButton.label.width / 2;
-                speedButton.label.y = speedButton.sizeY / 2 - speedButton.label.height / 2;
             }
             else
             {
@@ -271,6 +268,40 @@ function createLabelsAndButtons()
         },
     });
     gameScene.addChild(speedButton); 
+
+    let healthButton = new Button({
+        x: sceneWidth - 175,
+        y: 340,
+        sizeX: 150,
+        sizeY: 50,
+        color: 0x0000FF,
+        label: `Increase Max Health\n${lifeCost} Coins`,
+        onClick: () => {
+            if (score>=lifeCost && lifeLevel < 5) {
+                lifeLevel++;
+                lifeMax+=25;
+                score-=lifeCost;
+                scoreLabel.text = `Coins       ${score}`;
+                lifeCost += 30;
+                lifeLabel.text = `Health      ${life}/${lifeMax}`;
+
+                if(lifeLevel >= 6)
+                {
+                    //label isnt changing
+                    healthButton.changeText("No More Upgrades");
+                }
+                else
+                {
+                    healthButton.changeText(`Increase Health\n${lifeCost} Coins`);
+                }
+            }
+            else
+            {
+                return;
+            }
+        },
+    });
+    gameScene.addChild(healthButton);
 
     // 3 - set up `gameOverScene`
     // 3A - make game over text
@@ -321,10 +352,17 @@ function startGame()
     gameOverScene.visible = false;
     gameScene.visible = true;
     
-    app.view.onclick = () => fireBullet(levelNum);
-    levelNum = 1;
-    score = 0;
+    app.view.onclick = () => fireBullet();
+    spread = 1;
+    spreadCost = 50;
+    speedLevel = 1;
+    speedCost = 20;
+    lifeLevel = 1;
+    lifeMax = 100;
+    lifeCost = 30;
     life = 100;
+    score = 0;
+    levelNum = 1;
     increaseScoreBy(0);
     decreaseLifeBy(0);
     ship.x = 300;
@@ -340,14 +378,13 @@ function startGame()
 function increaseScoreBy(value)
 {
     score += value;
-    scoreLabel.text = `Coins    ${score}`;
+    scoreLabel.text = `Coins       ${score}`;
 }
 
 function decreaseLifeBy(value)
 {
     life -= value;
-    life = parseInt(life);
-    lifeLabel.text = `Life      ${life}%`;
+    lifeLabel.text = `Health      ${life}/${lifeMax}`;
 }
 
 function gameLoop()
@@ -486,7 +523,7 @@ function end()
     gameScene.visible = false;
 }
 
-function fireBullet(levelNum) 
+function fireBullet() 
 {
     if(paused) return;
 

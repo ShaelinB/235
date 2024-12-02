@@ -70,6 +70,12 @@ class Bullet extends PIXI.Graphics {
 class Button extends PIXI.Graphics {
     constructor({x,y,sizeX, sizeY,color,label,onClick}){
         super();
+        this.x = x;
+        this.y = y;
+        this.sizeX = sizeX;
+        this.sizeY = sizeY;
+
+
 
         //makes rectangle
         let button = new PIXI.Graphics();
@@ -93,13 +99,29 @@ class Button extends PIXI.Graphics {
 
         let buttonText = new PIXI.Text(label,textStyle);
         buttonText.anchor.set(0.5);
-        buttonText.x = sizeX/2;
-        buttonText.y = sizeY/2;
+        buttonText.x = this.sizeX/2;
+        buttonText.y = this.sizeY/2;
 
         this.addChild(button);
         this.addChild(buttonText);
 
-        this.x = x;
-        this.y = y;
+    }
+
+    changeText(label)
+    {
+        //this.buttonText.text = label;
+
+        let textStyle = new PIXI.TextStyle({
+            fill: 0xFFFFFF,
+            fontSize: 16,
+            fontFamily: "Futura",
+        });
+
+        let buttonText = new PIXI.Text(label,textStyle);
+        buttonText.anchor.set(0.5);
+        buttonText.x = this.sizeX/2;
+        buttonText.y = this.sizeY/2;
+
+        this.addChild(buttonText);
     }
 }
