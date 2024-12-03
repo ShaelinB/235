@@ -110,6 +110,10 @@ class Button extends PIXI.Graphics {
     changeText(label)
     {
         //this.buttonText.text = label;
+        if(this.children.length > 1)
+        {
+            this.removeChildAt(1);
+        }
 
         let textStyle = new PIXI.TextStyle({
             fill: 0xFFFFFF,

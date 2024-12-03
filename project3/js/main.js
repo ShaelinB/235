@@ -225,7 +225,7 @@ function createLabelsAndButtons()
                 }
                 else
                 {
-                    spreadButton.buttonText.text =`Increase Spread\n${spreadCost} Coins`;
+                    spreadButton.changeText(`Increase Spread\n${spreadCost} Coins`);
                 }
             }
             else
@@ -285,7 +285,7 @@ function createLabelsAndButtons()
                 lifeCost += 30;
                 lifeLabel.text = `Health      ${life}/${lifeMax}`;
 
-                if(lifeLevel >= 6)
+                if(lifeLevel >= 5)
                 {
                     //label isnt changing
                     healthButton.changeText("No More Upgrades");
