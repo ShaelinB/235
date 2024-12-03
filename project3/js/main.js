@@ -68,6 +68,10 @@ let lifeLevel = 1;
 let lifeMax = 100;
 let lifeCost = 30;
 
+//fields for abilities
+let restoreHealthCost = 100;
+let deleteHalfCost = 75;
+
 function setup() {
 	stage = app.stage;
 	// #1 - Create the `start` scene
@@ -206,7 +210,7 @@ function createLabelsAndButtons()
     //create upgrade buttons
     let spreadButton = new Button({
         x: sceneWidth - 175,
-        y: 190,
+        y: 75,
         sizeX: 150,
         sizeY:50,
         color: 0x0000FF,
@@ -239,7 +243,7 @@ function createLabelsAndButtons()
 
     let speedButton = new Button({
         x: sceneWidth - 175,
-        y: 265,
+        y: 150,
         sizeX: 150,
         sizeY: 50,
         color: 0x0000FF,
@@ -271,7 +275,7 @@ function createLabelsAndButtons()
 
     let healthButton = new Button({
         x: sceneWidth - 175,
-        y: 340,
+        y: 225,
         sizeX: 150,
         sizeY: 50,
         color: 0x0000FF,
@@ -302,6 +306,49 @@ function createLabelsAndButtons()
         },
     });
     gameScene.addChild(healthButton);
+
+    let restoreHealthButton = new Button({
+        x: sceneWidth-175,
+        y: 300,
+        sizeX: 150,
+        sizeY: 50,
+        color: 0x0000FF,
+        label: `Restore Health\n${restoreHealthCost} Coins`,
+        onClick: () => {
+            if (score >= restoreHealthCost)
+            {
+                life = lifeMax;
+                lifeLabel.text = `Health      ${life}/${lifeMax}`;
+                score-=restoreHealthCost;
+                scoreLabel.text = `Coins       ${score}`;
+            }
+        },
+    });
+    gameScene.addChild(restoreHealthButton);
+
+    let deleteHalfButton = new Button({
+        x: sceneWidth-175,
+        y: 375,
+        sizeX: 150,
+        sizeY: 50,
+        color: 0x0000FF,
+        label: `Kill 1/2 the Enemies\n${deleteHalfCost} Coins`,
+        onClick: () => {
+            if (score >= deleteHalfCost)
+                {
+                    score-=deleteHalfCost;
+                    scoreLabel.text = `Coins       ${score}`;
+                    let num = parseInt(circles.length()/2);
+                    for (let i = circles.length(); i>=num; i--)
+                    {
+                        //need to fix doesnt disappear
+                        gameScene.removeChild(circles[i]);
+                        circles[i].isAlive = false;
+                    }
+                }
+        },
+    });
+    gameScene.addChild(deleteHalfButton);
 
     // 3 - set up `gameOverScene`
     // 3A - make game over text
