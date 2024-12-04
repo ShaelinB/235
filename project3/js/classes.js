@@ -10,16 +10,15 @@ class Ship extends PIXI.Sprite
     }
 }
 
-class Circle extends PIXI.Graphics
+class Circle extends PIXI.Sprite
 {
-    constructor(radius, color = 0xff0000, x = 0, y = 0)
+    constructor(x = 0, y = 0)
     {
-        super();
-        this.beginFill(color);
-        this.drawCircle(x, y, radius);
+        super(app.loader.resources["images/Enemy.png"].texture);
         this.x = x;
         this.y = y;
-        this.radius = radius;
+        this.anchor.set(.5, .5); //position, scalling, rotation etc are now from center of sprite
+        this.scale.set(.075);
         this.fwd = getRandomUnitVector();
         this.speed = 50;
         this.isAlive = true;
@@ -45,15 +44,14 @@ class Circle extends PIXI.Graphics
     }
 }
 
-class Bullet extends PIXI.Graphics {
-    constructor(color = 0xffffff, x = 0, y = 0)
+class Bullet extends PIXI.Sprite {
+    constructor(x = 0, y = 0)
     {
-        super();
-        this.beginFill(color);
-        this.drawRect(-2,-3,4,6);
+        super(app.loader.resources["images/CannonBall.png"].texture);
         this.x = x;
         this.y = y;
-
+        this.anchor.set(0.5);
+        this.scale.set(1.25);
         this.fwd = {x: 0, y: -1};
         this.speed = 400;
         this.isAlive = true;

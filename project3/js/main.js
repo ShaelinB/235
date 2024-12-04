@@ -16,7 +16,11 @@ const sceneHeight = app.view.height;
 app.loader.
     add([
         "images/Boat.png",
-        "images/ExplosionSpriteSheet.png"
+        "images/ExplosionSpriteSheet.png",
+        "images/BoatAnimation.png",
+        "images/BrokenShip.png",
+        "images/Enemy.png",
+        "images/CannonBall.png",
     ]);
 app.loader.onProgress.add(e => { console.log(`progress=${e.progress}`) });
 app.loader.onComplete.add(setup);
@@ -90,6 +94,8 @@ function setup() {
     stage.addChild(gameOverScene);
 
 	// #4 - Create labels for all 3 scenes
+    addBoatAnimationToScene();
+    addBrokenBoat();
 	createLabelsAndButtons();
 
 	// #5 - Create ship
@@ -503,12 +509,12 @@ function gameLoop()
     for (let c of circles) 
     {
         c.move(dt);
-        if (c.x < c.radius || c.x > sceneWidth - c.radius-200)
+        if (c.x-c.width/2 < 0 || c.x > 600 - c.width/2)
         {
             c.reflectX();
             c.move(dt);
         }
-        if (c.y < c.radius || c.y > sceneHeight - c.radius)
+        if (c.y-c.height/2 < 0 || c.y > 600 - c.height/2)
             {
                 c.reflectY();
                 c.move(dt);
@@ -542,6 +548,53 @@ function gameLoop()
                 b.isAlive = false;
                 increaseScoreBy(1);
                 break;
+            }
+        }
+
+        for(let e of circles)
+        {
+            if(c.isAlive && e.isAlive && c!==e)
+            {
+                if(rectsIntersect(c,e))
+                {
+                    c.reflectX();
+                    c.reflectY();
+                    e.reflectX();
+                    e.reflectY();
+
+                    let overlapX = Math.min(c.x + c.width - e.x, e.x+e.width-c.x);
+                    let overlapY = Math.min(c.y +c.height - e.y, e.y + e.height - c.y);
+                    if(overlapX < overlapY)
+                    {
+                        if(c.x<e.x)
+                        {
+                            c.x-=overlapX/2;
+                            e.x+=overlapX/2;
+                        }
+                        else
+                        {
+                            c.x+=overlapX;
+                            e.x-=overlapX;
+                        }
+                    }
+                    else
+                    {
+                        if(c.y<e.y)
+                            {
+                                c.y-=overlapY/2;
+                                e.y+=overlapY/2;
+                            }
+                            else
+                            {
+                                c.y+=overlapY;
+                                e.y-=overlapY;
+                            }
+                    }
+                    c.x = clamp(c.x, 0+c.width/2, 600-c.width/2);
+                    c.y = clamp(c.y, 0+c.height/2, 600 - c.height/2);
+                    e.x = clamp(e.x, 0+e.width/2, 600-e.width/2);
+                    e.y = clamp(e.y, 0+e.height/2, 600 - e.height/2);
+                }
             }
         }
 
@@ -582,7 +635,7 @@ function createCircles(numCircles = 10)
 {
     for (let i = 0; i < numCircles; i++)
     {
-        let c = new Circle(10, 0xffff00);
+        let c = new Circle();
         c.x = Math.random() * (sceneWidth - 235) + 25;
         c.y = Math.random() * (sceneHeight - 400) + 25;
         circles.push(c);
@@ -625,7 +678,7 @@ function fireBullet()
             angles = [300,285,270,255,240];
             for (let i = 0; i < 5; i++)
             {
-                let b = new Bullet(0xffffff, ship.x, ship.y);
+                let b = new Bullet(ship.x, ship.y);
                 let radians = angles[i] * Math.PI / 180;
                 b.fwd.x = Math.cos(radians);
                 b.fwd.y = Math.sin(radians);
@@ -638,7 +691,7 @@ function fireBullet()
             angles = [292.5,277.5,262.5,247.5];
             for (let i = 0; i < 4; i++)
             {
-                let b = new Bullet(0xffffff, ship.x, ship.y);
+                let b = new Bullet(ship.x, ship.y);
                 let radians = angles[i] * Math.PI / 180;
                 b.fwd.x = Math.cos(radians);
                 b.fwd.y = Math.sin(radians);
@@ -651,7 +704,7 @@ function fireBullet()
             angles = [285,270,255];
             for (let i = 0; i < 3; i++)
             {
-                let b = new Bullet(0xffffff, ship.x, ship.y);
+                let b = new Bullet(ship.x, ship.y);
                 let radians = angles[i] * Math.PI / 180;
                 b.fwd.x = Math.cos(radians);
                 b.fwd.y = Math.sin(radians);
@@ -664,7 +717,7 @@ function fireBullet()
             angles = [277.5,262.5];
             for (let i = 0; i < 2; i++)
             {
-                let b = new Bullet(0xffffff, ship.x, ship.y);
+                let b = new Bullet(ship.x, ship.y);
                 let radians = angles[i] * Math.PI / 180;
                 b.fwd.x = Math.cos(radians);
                 b.fwd.y = Math.sin(radians);
@@ -674,7 +727,7 @@ function fireBullet()
             break;
 
         case 1:
-            let b = new Bullet(0xffffff, ship.x, ship.y);
+            let b = new Bullet(ship.x, ship.y);
             bullets.push(b);
             gameScene.addChild(b);
             break;
@@ -703,8 +756,7 @@ function createExplosion(x, y, frameWidth, frameHeight)
     let w2 = frameWidth/2;
     let h2 = frameHeight/2;
     let expl = new PIXI.AnimatedSprite(explosionTextures);
-    expl.width = frameWidth *1.25;
-    expl.height = frameHeight*1.25;
+    expl.scale.set(.4);
     expl.x = x - expl.width/2; //we want the center of the explosion to be at the center of the circle
     expl.y = y - expl.height/2; //same for height
     expl.animationSpeed = 1/7;
@@ -713,4 +765,42 @@ function createExplosion(x, y, frameWidth, frameHeight)
     explosions.push(expl);
     gameScene.addChild(expl);
     expl.play();
+}
+
+function loadBoatAnimation()
+{
+    let boat = PIXI.Texture.from("images/BoatAnimation.png");
+    let width = 640;
+    let height = 640;
+    let numFrames = 12;
+
+    let textures = [];
+    for (let i = 0; i < numFrames; i++) {
+        let frame = new PIXI.Texture(boat.baseTexture, new PIXI.Rectangle(i*width, 0, width, height));
+        textures.push(frame);
+    }
+    return textures;
+}
+
+function addBoatAnimationToScene() {
+    let boatTexture = loadBoatAnimation();
+    let boatAnim = new PIXI.AnimatedSprite(boatTexture);
+
+    boatAnim.anchor.set(0.5);
+    boatAnim.x = (sceneWidth-200)/2;
+    boatAnim.y = sceneHeight/2+50;
+    boatAnim.scale.set(0.625);
+    boatAnim.animationSpeed = 0.1;
+    boatAnim.loop = true;
+    boatAnim.play();
+    startScene.addChild(boatAnim);
+}
+
+function addBrokenBoat() {
+    let boat = new PIXI.Sprite(app.loader.resources["images/BrokenShip.png"].texture);
+    boat.anchor.set(0.5);
+    boat.x = (sceneWidth-200)/2;
+    boat.y = sceneHeight/2+100;
+    boat.scale.set(3);
+    gameOverScene.addChild(boat);
 }
