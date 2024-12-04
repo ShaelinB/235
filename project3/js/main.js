@@ -460,6 +460,7 @@ function startGame()
     life = 100;
     score = 0;
     levelNum = 1;
+
     increaseScoreBy(0);
     decreaseLifeBy(0);
     ship.x = 300;
