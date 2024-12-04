@@ -3,7 +3,8 @@
 "use strict";
 const app = new PIXI.Application({
     width: 800,
-    height: 600
+    height: 600,
+    backgroundColor: 0x1586DA,
 });
 document.body.appendChild(app.view);
 
@@ -14,8 +15,8 @@ const sceneHeight = app.view.height;
 // pre-load the images (this code works with PIXI v6)
 app.loader.
     add([
-        "images/spaceship.png",
-        "images/explosions.png"
+        "images/Boat.png",
+        "images/ExplosionSpriteSheet.png"
     ]);
 app.loader.onProgress.add(e => { console.log(`progress=${e.progress}`) });
 app.loader.onComplete.add(setup);
@@ -129,60 +130,66 @@ function setup() {
 
 function createLabelsAndButtons() 
 {
-    let buttonStyle = new PIXI.TextStyle({
-        fill: 0xFF0000,
-        fontSize: 48,
-        fontFamily: "Futura"
-    });
-
     // 1 - set up 'startScene'
     // 1A - make top start label
-    let startLabel1 = new PIXI.Text("Circle Blast!");
+    let startLabel1 = new PIXI.Text("Ship Shooter");
     startLabel1.style = new PIXI.TextStyle({
         fill: 0xFFFFFF,
         fontSize: 96,
         fontFamily: "Futura",
-        stroke: 0xFF0000,
+        stroke: 0x634422,
         strokeThickness: 6
     });
     startLabel1.x = 50;
-    startLabel1.y = 120;
+    startLabel1.y = 5;
     startScene.addChild(startLabel1);
 
-    // 1B - make middle start label
-    let startLabel2 = new PIXI.Text("R U worthy...?");
-    startLabel2.style = new PIXI.TextStyle({
-        fill: 0xFFFFFF,
-        fontSize: 32,
-        fontFamily: "Futura",
-        fontStyle: "italic",
-        stroke: 0xFF0000,
-        strokeThickness: 6
-    });
-    startLabel2.x = 185;
-    startLabel2.y = 300;
-    startScene.addChild(startLabel2);
+    let playButton = new Button({
+        x: sceneWidth-175,
+        y: 150,
+        sizeX: 150,
+        sizeY: 50,
+        color: 0xEDD4AE, 
+        label: "Play",
+        onClick: () => {
+            startGame();
+        }
+    })
+    startScene.addChild(playButton);
 
-    // 1C - make start game button
-    let startButton = new PIXI.Text("Enter, ... if you dare!");
-    startButton.style = buttonStyle;
-    startButton.x = 80;
-    startButton.y = sceneHeight - 100;
-    startButton.interactive = true;
-    startButton.buttonMode = true;
-    startButton.on("pointerup", startGame); // startGame is a function reference
-    startButton.on("pointerover", e => e.target.alpha = 0.7); // concise arrow function with no brackets
-    startButton.on("pointerout", e => e.currentTarget.alpha = 1.0); // ditto
-    startScene.addChild(startButton);
-
-    // 2 - set up 'gameScene'
     let textStyle = new PIXI.TextStyle({
         fill: 0xFFFFFF,
         fontSize: 18,
         fontFamily: "Futura",
-        stroke: 0xFF0000,
+        stroke: 0x634422,
         strokeThickness: 4
     });
+
+    let howToPlayText = new PIXI.Text("Up - W\nDown - S\n Left - A\nRight - D\n Fire - Left Click\nUpgrade - Left Click\nAbility - Left Click",textStyle);
+    howToPlayText.x = sceneWidth - howToPlayText.width/2*2.25;
+    howToPlayText.y = sceneHeight/2 - howToPlayText.height/2;
+    startScene.addChild(howToPlayText);
+
+    let docButton = new Button({
+        x: sceneWidth-175,
+        y: 400,
+        sizeX: 150,
+        sizeY: 50,
+        color: 0xEDD4AE, 
+        label: "Documentation",
+        onClick: () => {
+            window.location.href = "about.html";
+        }
+    })
+    startScene.addChild(docButton);
+
+    let startSeperator = new PIXI.Graphics();
+    startSeperator.beginFill(0xffffff);
+    startSeperator.drawRect(600,0,2,600);
+    startSeperator.endFill();
+    startScene.addChild(startSeperator);
+
+    // 2 - set up 'gameScene'
 
     //2A - make score label
     scoreLabel = new PIXI.Text();
@@ -201,19 +208,30 @@ function createLabelsAndButtons()
     decreaseLifeBy(0);
 
     //line that seperates the game and buttons
-    let seperator = new PIXI.Graphics();
-    seperator.beginFill(0xffffff);
-    seperator.drawRect(600,0,2,600);
-    seperator.endFill();
-    gameScene.addChild(seperator);
+    let gameSeperator = new PIXI.Graphics();
+    gameSeperator.beginFill(0xffffff);
+    gameSeperator.drawRect(600,0,2,600);
+    gameSeperator.endFill();
+    gameScene.addChild(gameSeperator);
+
+    //upgrades text
+    let upgradeText = new PIXI.Text("Upgrades", textStyle);
+    upgradeText.x = sceneWidth - upgradeText.width/2 * 4;
+    upgradeText.y = 60;
+    gameScene.addChild(upgradeText);
+
+    let abilitiesText = new PIXI.Text("Abilities", textStyle);
+    abilitiesText.x = sceneWidth - abilitiesText.width/2 * 4;
+    abilitiesText.y = 310;
+    gameScene.addChild(abilitiesText);
 
     //create upgrade buttons
     let spreadButton = new Button({
         x: sceneWidth - 175,
-        y: 75,
+        y: 100,
         sizeX: 150,
         sizeY:50,
-        color: 0x0000FF,
+        color: 0xEDD4AE,
         label: `Increase Spread\n${spreadCost} Coins`,
         onClick: () => {
             if (score>=spreadCost && spread < 3) {
@@ -243,10 +261,10 @@ function createLabelsAndButtons()
 
     let speedButton = new Button({
         x: sceneWidth - 175,
-        y: 150,
+        y: 175,
         sizeX: 150,
         sizeY: 50,
-        color: 0x0000FF,
+        color: 0xEDD4AE,
         label: `Increase Speed\n${speedCost} Coins`,
         onClick: () => {
             if (score>=speedCost && speedLevel < 3) {
@@ -275,10 +293,10 @@ function createLabelsAndButtons()
 
     let healthButton = new Button({
         x: sceneWidth - 175,
-        y: 225,
+        y: 250,
         sizeX: 150,
         sizeY: 50,
-        color: 0x0000FF,
+        color: 0xEDD4AE,
         label: `Increase Max Health\n${lifeCost} Coins`,
         onClick: () => {
             if (score>=lifeCost && lifeLevel < 5) {
@@ -309,10 +327,10 @@ function createLabelsAndButtons()
 
     let restoreHealthButton = new Button({
         x: sceneWidth-175,
-        y: 300,
+        y: 350,
         sizeX: 150,
         sizeY: 50,
-        color: 0x0000FF,
+        color: 0xEDD4AE,
         label: `Restore Health\n${restoreHealthCost} Coins`,
         onClick: () => {
             if (score >= restoreHealthCost)
@@ -328,68 +346,94 @@ function createLabelsAndButtons()
 
     let deleteHalfButton = new Button({
         x: sceneWidth-175,
-        y: 375,
+        y: 425,
         sizeX: 150,
         sizeY: 50,
-        color: 0x0000FF,
+        color: 0xEDD4AE,
         label: `Kill 1/2 the Enemies\n${deleteHalfCost} Coins`,
         onClick: () => {
             if (score >= deleteHalfCost)
                 {
                     score-=deleteHalfCost;
                     scoreLabel.text = `Coins       ${score}`;
-                    let num = parseInt(circles.length()/2);
-                    for (let i = circles.length(); i>=num; i--)
+                    let num = Math.ceil(circles.length/2);
+                    for (let i = 0; i<num; i++)
                     {
-                        //need to fix doesnt disappear
-                        gameScene.removeChild(circles[i]);
-                        circles[i].isAlive = false;
+                        let enemy = circles.pop();
+                        gameScene.removeChild(enemy);
+                        enemy.isAlive = false;
                     }
                 }
         },
     });
     gameScene.addChild(deleteHalfButton);
 
+    let tradeForCoinButton = new Button({
+        x: sceneWidth-175,
+        y: 500,
+        sizeX: 150,
+        sizeY: 50,
+        color: 0xEDD4AE, 
+        label: "Get 20 Coins\n20 Health",
+        onClick: () => {
+            if(life-20>0)
+            {
+                score+=20;
+                life-=20;
+                lifeLabel.text = `Health      ${life}/${lifeMax}`;
+                scoreLabel.text = `Coins       ${score}`;
+            }
+        },
+    });
+    gameScene.addChild(tradeForCoinButton);
+
     // 3 - set up `gameOverScene`
     // 3A - make game over text
-    let gameOverText = new PIXI.Text("Game Over!\n        :-O");
-    textStyle = new PIXI.TextStyle({
-	    fill: 0xFFFFFF,
-	    fontSize: 64,
-	    fontFamily: "Futura",
-	    stroke: 0xFF0000,
-	    strokeThickness: 6
+    let gameOverText = new PIXI.Text("Game Over");
+    gameOverText.style = new PIXI.TextStyle({
+        fill: 0xFFFFFF,
+        fontSize: 96,
+        fontFamily: "Futura",
+        stroke: 0x634422,
+        strokeThickness: 6
     });
-    gameOverText.style = textStyle;
-    gameOverText.x = 100;
-    gameOverText.y = sceneHeight/2 - 160;
+    gameOverText.x = 50;
+    gameOverText.y = 5;
     gameOverScene.addChild(gameOverText);
 
     //game over score label
-    gameOverScoreLabel = new PIXI.Text("Your final score: " + score);
+    gameOverScoreLabel = new PIXI.Text("Coins: " + score);
     textStyle = new PIXI.TextStyle({
 	    fill: 0xFFFFFF,
-	    fontSize: 32,
-	    fontFamily: "Futura",
-	    stroke: 0xFF0000,
-	    strokeThickness: 6
+        fontSize: 75,
+        fontFamily: "Futura",
+        stroke: 0x634422,
+        strokeThickness: 6
     });
     gameOverScoreLabel.style = textStyle;
     gameOverScoreLabel.x = 150;
-    gameOverScoreLabel.y = sceneHeight/2;
+    gameOverScoreLabel.y = 100;
     gameOverScene.addChild(gameOverScoreLabel);
 
     // 3B - make "play again?" button
-    let playAgainButton = new PIXI.Text("Play Again?");
-    playAgainButton.style = buttonStyle;
-    playAgainButton.x = 150;
-    playAgainButton.y = sceneHeight - 100;
-    playAgainButton.interactive = true;
-    playAgainButton.buttonMode = true;
-    playAgainButton.on("pointerup",startGame); // startGame is a function reference
-    playAgainButton.on('pointerover',e=>e.target.alpha = 0.7); // concise arrow function with no brackets
-    playAgainButton.on('pointerout',e=>e.currentTarget.alpha = 1.0); // ditto
+    let playAgainButton = new Button({
+        x: sceneWidth-175,
+        y: sceneHeight/2-25,
+        sizeX: 150,
+        sizeY: 50,
+        color: 0xEDD4AE, 
+        label: "Play Again",
+        onClick: () => {
+            startGame();
+        }
+    })
     gameOverScene.addChild(playAgainButton);
+
+    let gameOverSeperator = new PIXI.Graphics();
+    gameOverSeperator.beginFill(0xffffff);
+    gameOverSeperator.drawRect(600,0,2,600);
+    gameOverSeperator.endFill();
+    gameOverScene.addChild(gameOverSeperator);
 }
 
 function startGame()
@@ -564,7 +608,7 @@ function end()
     explosions.forEach((e) => gameScene.removeChild(e));
     explosions = [];
 
-    gameOverScoreLabel.text = "Your final score: " + score;
+    gameOverScoreLabel.text = "Coins: " + score;
 
     gameOverScene.visible = true;
     gameScene.visible = false;
@@ -641,14 +685,14 @@ function fireBullet()
 
 function loadSpriteSheet()
 {
-    let spriteSheet = PIXI.Texture.from("images/explosions.png");
-    let width = 64;
-    let height = 64;
-    let numFrames = 16;
+    let spriteSheet = PIXI.Texture.from("images/ExplosionSpriteSheet.png");
+    let width = 320;
+    let height = 320;
+    let numFrames = 4;
     let textures = [];
     for (let i = 0; i < numFrames; i++)
     {
-        let frame = new PIXI.Texture(spriteSheet.baseTexture, new PIXI.Rectangle(i*width, 64, width, height));
+        let frame = new PIXI.Texture(spriteSheet.baseTexture, new PIXI.Rectangle(i*width, 0, width, height));
         textures.push(frame);
     }
     return textures;
@@ -659,8 +703,10 @@ function createExplosion(x, y, frameWidth, frameHeight)
     let w2 = frameWidth/2;
     let h2 = frameHeight/2;
     let expl = new PIXI.AnimatedSprite(explosionTextures);
-    expl.x = x - w2; //we want the center of the explosion to be at the center of the circle
-    expl.y = y - h2; //same for height
+    expl.width = frameWidth *1.25;
+    expl.height = frameHeight*1.25;
+    expl.x = x - expl.width/2; //we want the center of the explosion to be at the center of the circle
+    expl.y = y - expl.height/2; //same for height
     expl.animationSpeed = 1/7;
     expl.loop = false;
     expl.onComplete = () => gameScene.removeChild(expl);
