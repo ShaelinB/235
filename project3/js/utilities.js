@@ -43,3 +43,12 @@
 	function getRandom(min, max) {
 		return Math.random() * (max - min) + min;
 	}
+
+	//normalizes a vector based on its starting and final point
+	function normalizeVector(xi, xf, yi, yf)
+	{
+		let x = xf - xi;
+		let y = yf - yi;
+		let length = Math.sqrt(x*x+y*y);
+		return {x: x/length, y: y/length};
+	}

@@ -7,6 +7,9 @@ class Ship extends PIXI.Sprite
         this.scale.set(.1);
         this.x = x;
         this.y = y;
+        //the ships rotation
+        this.rotation = 0;
+        this.fwd = {x:0, y: 1};
     }
 }
 
@@ -20,8 +23,11 @@ class Circle extends PIXI.Sprite
         this.anchor.set(.5, .5); //position, scalling, rotation etc are now from center of sprite
         this.scale.set(.075);
         this.fwd = getRandomUnitVector();
-        this.speed = 50;
+        //enemies can have a speed of 50-100
+        this.speed = Math.random()*50+50;
         this.isAlive = true;
+        //timer for when they can shoot at you
+        this.shootCooldown = 5;
 
         this.x = clamp(this.x, 0, 600);
         this.y = clamp(this.y, 0, 600);
@@ -45,7 +51,7 @@ class Circle extends PIXI.Sprite
 }
 
 class Bullet extends PIXI.Sprite {
-    constructor(x = 0, y = 0)
+    constructor(x = 0, y = 0, isFriendly)
     {
         super(app.loader.resources["images/CannonBall.png"].texture);
         this.x = x;
@@ -55,6 +61,8 @@ class Bullet extends PIXI.Sprite {
         this.fwd = {x: 0, y: -1};
         this.speed = 400;
         this.isAlive = true;
+        //if true then its a player bullet otherwise its an enemy bullet
+        this.isFriendly = isFriendly;
         Object.seal(this);
     }
 
@@ -65,6 +73,7 @@ class Bullet extends PIXI.Sprite {
     }
 }
 
+//button class to make buttons easier
 class Button extends PIXI.Graphics {
     constructor({x,y,sizeX, sizeY,color,label,onClick}){
         super();
@@ -92,7 +101,7 @@ class Button extends PIXI.Graphics {
         let textStyle = new PIXI.TextStyle({
             fill: 0x634422,
             fontSize: 16,
-            fontFamily: "Futura",
+            fontFamily: "Georgia",
         });
 
         let buttonText = new PIXI.Text(label,textStyle);
@@ -107,16 +116,17 @@ class Button extends PIXI.Graphics {
 
     changeText(label)
     {
-        //this.buttonText.text = label;
+        //removes the old label
         if(this.children.length > 1)
         {
             this.removeChildAt(1);
         }
 
+        //creates a new one
         let textStyle = new PIXI.TextStyle({
             fill: 0x634422,
             fontSize: 16,
-            fontFamily: "Futura",
+            fontFamily: "Georgia",
         });
 
         let buttonText = new PIXI.Text(label,textStyle);

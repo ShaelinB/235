@@ -47,7 +47,7 @@ let stage;
 
 // game variables
 let startScene;
-let gameScene,ship,scoreLabel,lifeLabel,shootSound,hitSound,fireballSound;
+let gameScene,ship,scoreLabel,lifeLabel,shootSound,hitSound;
 let gameOverScene;
 
 let circles = [];
@@ -112,16 +112,14 @@ function setup() {
 	
 	// #6 - Load Sounds
     shootSound = new Howl({
-	    src: ['sounds/shoot.wav']
+	    src: ['sounds/Shoot.wav']
     });
+    shootSound.volume(.1);
 
     hitSound = new Howl({
-	    src: ['sounds/hit.mp3']
+	    src: ['sounds/Hit.wav']
     });
-
-    fireballSound = new Howl({
-	    src: ['sounds/fireball.mp3']
-    });
+    hitSound.volume(.1);
 	
 	// #7 - Load sprite sheet
 	explosionTextures = loadSpriteSheet();
@@ -142,22 +140,25 @@ function createLabelsAndButtons()
     startLabel1.style = new PIXI.TextStyle({
         fill: 0xFFFFFF,
         fontSize: 96,
-        fontFamily: "Futura",
+        fontFamily: "Georgia",
         stroke: 0x634422,
         strokeThickness: 6
     });
-    startLabel1.x = 50;
+    startLabel1.x = (sceneWidth - 200)/2 - startLabel1.width/2;
     startLabel1.y = 5;
     startScene.addChild(startLabel1);
 
     let playButton = new Button({
         x: sceneWidth-175,
-        y: 150,
+        y: 140,
         sizeX: 150,
         sizeY: 50,
         color: 0xEDD4AE, 
         label: "Play",
         onClick: () => {
+            spreadButton.changeText(`Increase Spread\n- 50 Coins`);
+            speedButton.changeText(`Increase Speed\n- 20 Coins`);
+            healthButton.changeText(`Increase Health\n- 30 Coins`);
             startGame();
         }
     })
@@ -166,19 +167,19 @@ function createLabelsAndButtons()
     let textStyle = new PIXI.TextStyle({
         fill: 0xFFFFFF,
         fontSize: 18,
-        fontFamily: "Futura",
+        fontFamily: "Georgia",
         stroke: 0x634422,
-        strokeThickness: 4
+        strokeThickness: 4,
     });
 
-    let howToPlayText = new PIXI.Text("Up - W\nDown - S\n Left - A\nRight - D\n Fire - Left Click\nUpgrade - Left Click\nAbility - Left Click",textStyle);
-    howToPlayText.x = sceneWidth - howToPlayText.width/2*2.25;
+    let howToPlayText = new PIXI.Text("Up - W\nDown - S\n Left - A\nRight - D\nRotate CCW - Q\nRotate CW - E\n Fire - Left Click\nUse Shop - Left Click",textStyle);
+    howToPlayText.x = sceneWidth - howToPlayText.width/2*2.175;
     howToPlayText.y = sceneHeight/2 - howToPlayText.height/2;
     startScene.addChild(howToPlayText);
 
     let docButton = new Button({
         x: sceneWidth-175,
-        y: 400,
+        y: 410,
         sizeX: 150,
         sizeY: 50,
         color: 0xEDD4AE, 
@@ -222,7 +223,7 @@ function createLabelsAndButtons()
 
     //upgrades text
     let upgradeText = new PIXI.Text("Upgrades", textStyle);
-    upgradeText.x = sceneWidth - upgradeText.width/2 * 4;
+    upgradeText.x = sceneWidth - upgradeText.width/2 * 3.6;
     upgradeText.y = 60;
     gameScene.addChild(upgradeText);
 
@@ -232,13 +233,14 @@ function createLabelsAndButtons()
     gameScene.addChild(abilitiesText);
 
     //create upgrade buttons
+    //increases how many bullets you shoot
     let spreadButton = new Button({
         x: sceneWidth - 175,
         y: 100,
         sizeX: 150,
         sizeY:50,
         color: 0xEDD4AE,
-        label: `Increase Spread\n${spreadCost} Coins`,
+        label: `Increase Spread\n- ${spreadCost} Coins`,
         onClick: () => {
             if (score>=spreadCost && spread < 3) {
                 spread++;
@@ -253,7 +255,7 @@ function createLabelsAndButtons()
                 }
                 else
                 {
-                    spreadButton.changeText(`Increase Spread\n${spreadCost} Coins`);
+                    spreadButton.changeText(`Increase Spread\n- ${spreadCost} Coins`);
                 }
             }
             else
@@ -265,13 +267,14 @@ function createLabelsAndButtons()
     gameScene.addChild(spreadButton);
     
 
+    //increases the speed the ship moves at
     let speedButton = new Button({
         x: sceneWidth - 175,
         y: 175,
         sizeX: 150,
         sizeY: 50,
         color: 0xEDD4AE,
-        label: `Increase Speed\n${speedCost} Coins`,
+        label: `Increase Speed\n- ${speedCost} Coins`,
         onClick: () => {
             if (score>=speedCost && speedLevel < 3) {
                 speedLevel++;
@@ -286,7 +289,7 @@ function createLabelsAndButtons()
                 }
                 else
                 {
-                    speedButton.changeText(`Increase Speed\n${speedCost} Coins`);
+                    speedButton.changeText(`Increase Speed\n- ${speedCost} Coins`);
                 }
             }
             else
@@ -297,16 +300,18 @@ function createLabelsAndButtons()
     });
     gameScene.addChild(speedButton); 
 
+    //increases max health
     let healthButton = new Button({
         x: sceneWidth - 175,
         y: 250,
         sizeX: 150,
         sizeY: 50,
         color: 0xEDD4AE,
-        label: `Increase Max Health\n${lifeCost} Coins`,
+        label: `Increase Max Health\n- ${lifeCost} Coins`,
         onClick: () => {
             if (score>=lifeCost && lifeLevel < 5) {
                 lifeLevel++;
+                life+=25;
                 lifeMax+=25;
                 score-=lifeCost;
                 scoreLabel.text = `Coins       ${score}`;
@@ -320,7 +325,7 @@ function createLabelsAndButtons()
                 }
                 else
                 {
-                    healthButton.changeText(`Increase Health\n${lifeCost} Coins`);
+                    healthButton.changeText(`Increase Max Health\n- ${lifeCost} Coins`);
                 }
             }
             else
@@ -331,13 +336,14 @@ function createLabelsAndButtons()
     });
     gameScene.addChild(healthButton);
 
+    //restores health
     let restoreHealthButton = new Button({
         x: sceneWidth-175,
         y: 350,
         sizeX: 150,
         sizeY: 50,
         color: 0xEDD4AE,
-        label: `Restore Health\n${restoreHealthCost} Coins`,
+        label: `Restore Health\n- ${restoreHealthCost} Coins`,
         onClick: () => {
             if (score >= restoreHealthCost)
             {
@@ -350,13 +356,14 @@ function createLabelsAndButtons()
     });
     gameScene.addChild(restoreHealthButton);
 
+    //deletes half of the enemies
     let deleteHalfButton = new Button({
         x: sceneWidth-175,
         y: 425,
         sizeX: 150,
         sizeY: 50,
         color: 0xEDD4AE,
-        label: `Kill 1/2 the Enemies\n${deleteHalfCost} Coins`,
+        label: `Kill 1/2 the Enemies\n- ${deleteHalfCost} Coins`,
         onClick: () => {
             if (score >= deleteHalfCost)
                 {
@@ -374,18 +381,19 @@ function createLabelsAndButtons()
     });
     gameScene.addChild(deleteHalfButton);
 
+    //allows you to get coins for health
     let tradeForCoinButton = new Button({
         x: sceneWidth-175,
         y: 500,
         sizeX: 150,
         sizeY: 50,
         color: 0xEDD4AE, 
-        label: "Get 20 Coins\n20 Health",
+        label: "Get 20 Coins\n- 1/4 Max Health",
         onClick: () => {
-            if(life-20>0)
+            if(life-parseInt(lifeMax/4)>0)
             {
                 score+=20;
-                life-=20;
+                life-=parseInt(lifeMax/4);
                 lifeLabel.text = `Health      ${life}/${lifeMax}`;
                 scoreLabel.text = `Coins       ${score}`;
             }
@@ -399,7 +407,7 @@ function createLabelsAndButtons()
     gameOverText.style = new PIXI.TextStyle({
         fill: 0xFFFFFF,
         fontSize: 96,
-        fontFamily: "Futura",
+        fontFamily: "Georgia",
         stroke: 0x634422,
         strokeThickness: 6
     });
@@ -412,7 +420,7 @@ function createLabelsAndButtons()
     textStyle = new PIXI.TextStyle({
 	    fill: 0xFFFFFF,
         fontSize: 75,
-        fontFamily: "Futura",
+        fontFamily: "Georgia",
         stroke: 0x634422,
         strokeThickness: 6
     });
@@ -424,16 +432,34 @@ function createLabelsAndButtons()
     // 3B - make "play again?" button
     let playAgainButton = new Button({
         x: sceneWidth-175,
-        y: sceneHeight/2-25,
+        y: sceneHeight/2-30,
         sizeX: 150,
         sizeY: 50,
         color: 0xEDD4AE, 
         label: "Play Again",
         onClick: () => {
+
+            spreadButton.changeText(`Increase Spread\n- 50 Coins`);
+            speedButton.changeText(`Increase Speed\n- 20 Coins`);
+            healthButton.changeText(`Increase Health\n- 30 Coins`);
             startGame();
         }
     })
     gameOverScene.addChild(playAgainButton);
+
+    let menuButton = new Button({
+        x: sceneWidth-175,
+        y: sceneHeight/2+30,
+        sizeX: 150,
+        sizeY: 50,
+        color: 0xEDD4AE, 
+        label: "Menu",
+        onClick: () => {
+            gameOverScene.visible = false;
+            startScene.visible = true;
+        },
+    })
+    gameOverScene.addChild(menuButton);
 
     let gameOverSeperator = new PIXI.Graphics();
     gameOverSeperator.beginFill(0xffffff);
@@ -449,6 +475,7 @@ function startGame()
     gameOverScene.visible = false;
     gameScene.visible = true;
     
+    //resets all values
     app.view.onclick = () => fireBullet();
     spread = 1;
     spreadCost = 50;
@@ -493,8 +520,11 @@ function gameLoop()
     let dt = 1 / app.ticker.FPS;
     if (dt > 1 / 12) dt = 1 / 12;
   
-    // #2 - Move Ship
+    // #2 - Move Ship using keyboard
     let speed = speedLevel * 100 * dt;
+    let rotationSpeed = Math.PI/180 * 50 * dt;
+    if (keys["KeyQ"]) ship.rotation -= rotationSpeed; ship.fwd = {x: Math.cos(ship.rotation), y : Math.sin(ship.rotation)};
+    if (keys["KeyE"]) ship.rotation += rotationSpeed; ship.fwd = {x: Math.cos(ship.rotation), y : Math.sin(ship.rotation)};
     if (keys["KeyW"]) ship.y -= speed;
     if (keys["KeyS"]) ship.y += speed;
     if (keys["KeyA"]) ship.x -= speed;
@@ -510,38 +540,62 @@ function gameLoop()
     for (let c of circles) 
     {
         c.move(dt);
+        if(c.shootCooldown <= 0)
+            {
+                c.shootCooldown = 5;
+                let b = new Bullet(c.x, c.y, false);
+                b.fwd = normalizeVector(c.x,ship.x,c.y,ship.y);
+                bullets.push(b);
+                gameScene.addChild(b);
+            }
+            else
+            {
+                c.shootCooldown-=dt;
+            }
         if (c.x-c.width/2 < 0 || c.x > 600 - c.width/2)
         {
             c.reflectX();
             c.move(dt);
         }
         if (c.y-c.height/2 < 0 || c.y > 600 - c.height/2)
-            {
-                c.reflectY();
-                c.move(dt);
-            }
+        {
+            c.reflectY();
+            c.move(dt);
+        }
     }
   
     // #4 - Move Bullets
     for (let b of bullets) {
         b.move(dt);
-        if(b.x >= 600)
+        //checks if its in bounds
+        if(b.x < 0 || b.x > 600 || b.y < 0 || b.y > 600)
         {
             gameScene.removeChild(b);
             b.isAlive = false;  
         }
     }
-  
-  
+    
+    for(let b of bullets)
+    {
+        //checks if the enemy bullets hit the ship
+        if (b.isAlive && rectsIntersect(b,ship) && !b.isFriendly)
+            {
+                hitSound.play();
+                gameScene.removeChild(b);
+                b.isAlive = false;
+                decreaseLifeBy(10);
+            }
+    }
+
     // #5 - Check for Collisions
     for (let c of circles)
     {
         // 5A - circles & bullets
         for (let b of bullets)
         {
-            if(rectsIntersect(c,b))
+            if(rectsIntersect(c,b) && b.isFriendly)
             {
-                fireballSound.play();
+                hitSound.play();
                 createExplosion(c.x,c.y,64,64);
                 gameScene.removeChild(c);
                 c.isAlive = false;
@@ -550,8 +604,11 @@ function gameLoop()
                 increaseScoreBy(1);
                 break;
             }
+
+            
         }
 
+        //checks circle to circle collision
         for(let e of circles)
         {
             if(c.isAlive && e.isAlive && c!==e)
@@ -673,67 +730,34 @@ function fireBullet()
     if(paused) return;
 
     let angles = [];
+    let shipRot = ship.rotation;
+    //shoots bullets in the direction of the ships rotation
     switch(spread)
     {
-        case 5:
-            angles = [300,285,270,255,240];
-            for (let i = 0; i < 5; i++)
-            {
-                let b = new Bullet(ship.x, ship.y);
-                let radians = angles[i] * Math.PI / 180;
-                b.fwd.x = Math.cos(radians);
-                b.fwd.y = Math.sin(radians);
-                bullets.push(b);
-                gameScene.addChild(b);
-            }
-            break;
-
-        case 4:
-            angles = [292.5,277.5,262.5,247.5];
-            for (let i = 0; i < 4; i++)
-            {
-                let b = new Bullet(ship.x, ship.y);
-                let radians = angles[i] * Math.PI / 180;
-                b.fwd.x = Math.cos(radians);
-                b.fwd.y = Math.sin(radians);
-                bullets.push(b);
-                gameScene.addChild(b);
-            }
-            break;
-
         case 3:
-            angles = [285,270,255];
-            for (let i = 0; i < 3; i++)
-            {
-                let b = new Bullet(ship.x, ship.y);
-                let radians = angles[i] * Math.PI / 180;
-                b.fwd.x = Math.cos(radians);
-                b.fwd.y = Math.sin(radians);
-                bullets.push(b);
-                gameScene.addChild(b);
-            }
+            angles = [shipRot - Math.PI/12,shipRot,shipRot + Math.PI/12];
             break;
 
         case 2:
-            angles = [277.5,262.5];
-            for (let i = 0; i < 2; i++)
-            {
-                let b = new Bullet(ship.x, ship.y);
-                let radians = angles[i] * Math.PI / 180;
-                b.fwd.x = Math.cos(radians);
-                b.fwd.y = Math.sin(radians);
-                bullets.push(b);
-                gameScene.addChild(b);
-            }
+            angles = [shipRot - Math.PI/8,shipRot + Math.PI/8];
             break;
 
         case 1:
-            let b = new Bullet(ship.x, ship.y);
-            bullets.push(b);
-            gameScene.addChild(b);
+            angles = [shipRot];
             break;
     }
     
+    for (let i = 0; i < angles.length; i++)
+        {
+            let b = new Bullet(ship.x, ship.y, true);
+            //have to add pi/2 because the fwd is right when the ship is facing up
+            let radians = angles[i] - Math.PI/2;
+            b.fwd.x = Math.cos(radians);
+            b.fwd.y = Math.sin(radians);
+            console.log(b.fwd);
+            bullets.push(b);
+            gameScene.addChild(b);
+        }
     shootSound.play();
 }
 
@@ -768,6 +792,7 @@ function createExplosion(x, y, frameWidth, frameHeight)
     expl.play();
 }
 
+//creates start screen animation
 function loadBoatAnimation()
 {
     let boat = PIXI.Texture.from("images/BoatAnimation.png");
@@ -797,6 +822,7 @@ function addBoatAnimationToScene() {
     startScene.addChild(boatAnim);
 }
 
+//add an image to game over screen
 function addBrokenBoat() {
     let boat = new PIXI.Sprite(app.loader.resources["images/BrokenShip.png"].texture);
     boat.anchor.set(0.5);
